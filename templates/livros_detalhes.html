@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Livro</title>
+</head>
+<body>
+  <h1>Detalhes do Livro</h1>
+  <div id="detalhesLivro"></div>
+
+  <script>
+    async function carregarDetalhes() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      const resposta = await fetch(`URL_DA_API_DO_APPS_SCRIPT?action=detalhesLivro&id=${id}`);
+      const livro = await resposta.json();
+
+      document.getElementById("detalhesLivro").innerHTML = `
+        <h2>${livro.titulo}</h2>
+        <p>Série: ${livro.serie}</p>
+        <p>Status: ${livro.status}</p>
+        <p>Estado de Conservação: ${livro.estado || "Não informado"}</p>
+        <button onclick="window.open('https://wa.me/?text=Estou interessado no livro ${livro.titulo}')">Falar no WhatsApp</button>
+      `;
+    }
+
+    carregarDetalhes();
+  </script>
+</body>
+</html>

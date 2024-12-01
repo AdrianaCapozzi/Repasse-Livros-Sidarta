@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Perfil</title>
+</head>
+<body>
+  <h1>Meu Perfil</h1>
+  <div id="infoUsuario"></div>
+  <h2>Seus Livros</h2>
+  <table id="tabelaLivros">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Status</th>
+        <th>Estado de Conservação</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Livros serão preenchidos dinamicamente -->
+    </tbody>
+  </table>
+  <script>
+    async function carregarPerfil() {
+      const resposta = await fetch("URL_DA_API_DO_APPS_SCRIPT?action=meuPerfil&usuario=USUARIO_LOGADO");
+      const dados = await resposta.json();
+      
+      // Exibir informações do usuário
+      document.getElementById("infoUsuario").innerHTML = `
+        <p>Nome: ${dados.nome}</p>
+        <p>Celular: ${dados.celular || "Não informado"}</p>
+        <p>Série: ${dados.serie}</p>
+      `;
+
+      // Listar livros
+      const tabela = document.getElementById("tabelaLivros").querySelector("tbody");
+      tabela.innerHTML = dados.livros.map(livro => `
+        <tr>
+          <td>${livro.titulo}</td>
+          <td>${livro.status}</td>
+          <td>${livro.estado || "Sem observações"}</td>
+          <td>
+            <button onclick="alterarStatus(${livro.id}, 'repassado')">Marcar como Repassado</button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    async function alterarStatus(id, status) {
+      await fetch(`URL_DA_API_DO_APPS_SCRIPT?action=alterarStatus&livroId=${id}&status=${status}`, {
+        method: "POST",
+      });
+      alert("Status atualizado!");
+      carregarPerfil();
+    }
+
+    carregarPerfil();
+  </script>
+</body>
+</html>
