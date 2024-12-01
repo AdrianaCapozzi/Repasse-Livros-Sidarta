@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <title>Cadastro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="script.js" defer></script>
+
+
+    
 </head>
-<body>
-    <h1>Cadastro</h1>
-    <form method="POST">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+<body onload="initGoogleAPI()">
+    <div class="container">
+        <h1>Cadastro de Usuário</h1>
+        <form id="formCadastro">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
+            <label for="celular">Celular (opcional):</label>
+            <input type="text" id="celular" name="celular">
 
-        <label for="celular">Celular (WhatsApp):</label>
-        <input type="text" id="celular" name="celular">
-
-        <label for="serie_2025">Série em 2025:</label>
-        <select id="serie_2025" name="serie_2025">
-            <option value="G5">G5</option>
-            <option value="1">1º Ano do Ciclo 1</option>
-            <option value="2">2º Ano do Ciclo 1</option>
-            <option value="3">3º Ano do Ciclo 1</option>
-            <option value="4">4º Ano do Ciclo 2</option>
-            <option value="5">5º Ano do Ciclo 2</option>
-            <option value="6">6º Ano do Ciclo 2</option>
-            <option value="7">7º Ano do Ciclo 2</option>
-            <option value="8">8º Ano do Ciclo 3</option>
-            <option value="9">9º Ano do Ciclo 3</option>
-            <option value="EM1">1º Ano do Ensino Médio</option>
-            <option value="EM2">2º Ano do Ensino Médio</option>
-            <option value="EM3">3º Ano do Ensino Médio</option>
-        </select>
-
-        <p>Tem livros para repassar?</p>
-        <label>
-            <input type="radio" name="tem_livros" value="Sim" required> Sim
-        </label>
-        <label>
-            <input type="radio" name="tem_livros" value="Não" required> Não
-        </label>
-
-        <button type="submit">Cadastrar</button>
-    </form>
+            
+            
+            <label for="serie_2025">Série em 2025:</label>
+            <select id="serie_2025" name="serie_2025">
+                <option value="G5">G5</option>
+                <option value="1">1º Ano</option>
+                <option value="2">2º Ano</option>
+                <option value="3">3º Ano</option>
+                <option value="4">4º Ano</option>
+                <option value="5">5º Ano</option>
+                <option value="6">6º Ano</option>
+                <option value="7">7º Ano</option>
+                <option value="8">8º Ano</option>
+                <option value="9">9º Ano</option>
+                <option value="1_ensino_medio">1º Ano do Ensino Médio</option>
+                <option value="2_ensino_medio">2º Ano do Ensino Médio</option>
+                <option value="3_ensino_medio">3º Ano do Ensino Médio</option>
+            </select>
+            
+            <label>Tem livros para repassar?</label>
+            <input type="radio" id="temLivrosSim" name="temLivros" value="sim" required> Sim
+            <input type="radio" id="temLivrosNao" name="temLivros" value="não" required> Não
+            
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
 </body>
 </html>
