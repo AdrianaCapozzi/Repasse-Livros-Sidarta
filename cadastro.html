@@ -8,70 +8,105 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="script.js" defer></script>
 
-    <style>body {
-        background-color: black;
-        color: lightgray;
-        font-family: Arial, sans-serif;
-    }
-    
-    h1 {
-        text-align: center;
-        font-size: 2em;
-    }
-    
-    .container {
-        width: 80%;
-        margin: 0 auto;
-    }
-    
-    label {
-        display: block;
-        margin-top: 10px;
-    }
-    
-    input, select {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border-radius: 5px;
-    }
-    
-    button {
-        padding: 10px;
-        background-color: blue;
-        color: white;
-        border-radius: 15px;
-        border: none;
-        margin-top: 20px;
-        cursor: pointer;
-    }
-    
-    button:hover {
-        background-color: darkblue;
-    }
-    
-    select option:nth-child(1),
-    select option:nth-child(2),
-    select option:nth-child(3) {
-        background-color: #ff5733; /* Cores quentes para o Ciclo 1 */
-    }
-    
-    select option:nth-child(4),
-    select option:nth-child(5),
-    select option:nth-child(6),
-    select option:nth-child(7) {
-        background-color: #33aaff; /* Cores frias para o Ciclo 2 */
-    }
-    
-    select option:nth-child(8),
-    select option:nth-child(9),
-    select option:nth-child(10) {
-        background-color: #ff5733; /* Cores quentes para o Ciclo 3 */
-    }
+    <style>
+        body {
+            background-color: black;
+            color: lightgray;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 15px;
+            background-color: blue;
+            color: white;
+            border-radius: 15px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        select option:nth-child(1),
+        select option:nth-child(2),
+        select option:nth-child(3) {
+            background-color: #ff5733; /* Ciclo 1 - Quente */
+        }
+
+        select option:nth-child(4),
+        select option:nth-child(5),
+        select option:nth-child(6),
+        select option:nth-child(7) {
+            background-color: #33aaff; /* Ciclo 2 - Frio */
+        }
+
+        select option:nth-child(8),
+        select option:nth-child(9),
+        select option:nth-child(10) {
+            background-color: #ff5733; /* Ciclo 3 - Quente */
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .radio-group input {
+            margin-right: 5px;
+        }
+
+        #livrosRepassar {
+            margin-top: 15px;
+            display: none;
+        }
+
+        #celular {
+            width: 40%;
+            display: inline-block;
+        }
+
+        /* Melhorar a aparência do botão */
+        button {
+            width: auto;
+            margin: 20px 0;
+        }
+
+        .livros-container {
+            display: none;
+            margin-top: 10px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
     </style>
 
-
-    
 </head>
 <body onload="initGoogleAPI()">
     <div class="container">
@@ -84,10 +119,8 @@
             <input type="password" id="senha" name="senha" required>
 
             <label for="celular">Celular (opcional):</label>
-            <input type="text" id="celular" name="celular">
+            <input type="text" id="celular" name="celular" oninput="formatarCelular()">
 
-            
-            
             <label for="serie_2025">Série em 2025:</label>
             <select id="serie_2025" name="serie_2025">
                 <option value="G5">G5</option>
@@ -105,12 +138,47 @@
                 <option value="3_ensino_medio">3º Ano do Ensino Médio</option>
             </select>
             
-            <label>Tem livros para repassar?</label>
-            <input type="radio" id="temLivrosSim" name="temLivros" value="sim" required> Sim
-            <input type="radio" id="temLivrosNao" name="temLivros" value="não" required> Não
-            
+            <label class="radio-group">
+                <input type="radio" id="temLivrosSim" name="temLivros" value="sim" required> Sim
+                <input type="radio" id="temLivrosNao" name="temLivros" value="não" required> Não
+            </label>
+
+            <div id="livrosRepassar" class="livros-container">
+                <label for="livros">Escolha os livros a serem repassados:</label>
+                <select id="livros" name="livros">
+                    <option value="livro1">Livro 1</option>
+                    <option value="livro2">Livro 2</option>
+                    <option value="livro3">Livro 3</option>
+                    <!-- Aqui você pode adicionar os livros conforme a série escolhida -->
+                </select>
+            </div>
+
             <button type="submit">Cadastrar</button>
         </form>
     </div>
+
+    <script>
+        // Função para formatação automática do celular
+        function formatarCelular() {
+            var celular = document.getElementById('celular');
+            var valor = celular.value.replace(/\D/g, ''); // Remove tudo que não for número
+            if (valor.length <= 2) {
+                celular.value = '(' + valor;
+            } else if (valor.length <= 7) {
+                celular.value = '(' + valor.substring(0, 2) + ') ' + valor.substring(2, 7);
+            } else {
+                celular.value = '(' + valor.substring(0, 2) + ') ' + valor.substring(2, 7) + '-' + valor.substring(7, 11);
+            }
+        }
+
+        // Função para exibir os livros ao escolher "Sim"
+        document.getElementById('temLivrosSim').addEventListener('click', function () {
+            document.getElementById('livrosRepassar').style.display = 'block';
+        });
+
+        document.getElementById('temLivrosNao').addEventListener('click', function () {
+            document.getElementById('livrosRepassar').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
