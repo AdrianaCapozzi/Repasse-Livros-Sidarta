@@ -38,75 +38,85 @@
         }
 
         button {
-            padding: 15px;
+            padding: 10px;
             background-color: blue;
             color: white;
             border-radius: 15px;
             border: none;
             margin-top: 20px;
             cursor: pointer;
-            width: 100%;
         }
 
         button:hover {
             background-color: darkblue;
         }
 
-        select option:nth-child(1),
-        select option:nth-child(2),
-        select option:nth-child(3) {
-            background-color: #ff5733; /* Ciclo 1 - Quente */
+        /* Ciclo 1: G5 a 3º Ano (laranja) */
+        #serie_2025 option:nth-child(1),
+        #serie_2025 option:nth-child(2),
+        #serie_2025 option:nth-child(3) {
+            background-color: #ff5733; /* Laranja */
         }
 
-        select option:nth-child(4),
-        select option:nth-child(5),
-        select option:nth-child(6),
-        select option:nth-child(7) {
-            background-color: #33aaff; /* Ciclo 2 - Frio */
+        /* Ciclo 2: 2º ao 7º Ano (verde) */
+        #serie_2025 option:nth-child(4),
+        #serie_2025 option:nth-child(5),
+        #serie_2025 option:nth-child(6),
+        #serie_2025 option:nth-child(7) {
+            background-color: #33cc33; /* Verde */
         }
 
-        select option:nth-child(8),
-        select option:nth-child(9),
-        select option:nth-child(10) {
-            background-color: #ff5733; /* Ciclo 3 - Quente */
+        /* Ciclo 3: 8º e 9º Ano e Ensino Médio (azul) */
+        #serie_2025 option:nth-child(8),
+        #serie_2025 option:nth-child(9),
+        #serie_2025 option:nth-child(10),
+        #serie_2025 option:nth-child(11),
+        #serie_2025 option:nth-child(12) {
+            background-color: #337ab7; /* Azul */
         }
 
-        .radio-group {
+        .livros-dropdown {
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Estilo para as opções de sim/não */
+        .sim-nao {
             display: flex;
             align-items: center;
             margin-top: 10px;
         }
 
-        .radio-group input {
+        .sim-nao input {
             margin-right: 5px;
         }
 
-        #livrosRepassar {
-            margin-top: 15px;
-            display: none;
+        .livros-dropdown select {
+            width: 50%;
+            margin-top: 5px;
         }
 
+        /* Ajuste no campo celular */
         #celular {
-            width: 40%;
-            display: inline-block;
+            width: 50%;
+            margin-top: 5px;
         }
 
-        /* Melhorar a aparência do botão */
-        button {
-            width: auto;
-            margin: 20px 0;
-        }
-
-        .livros-container {
-            display: none;
-            margin-top: 10px;
-            background-color: #333;
+        /* Formatação para celular com parênteses e traço */
+        .formatted-phone {
+            width: 100%;
             padding: 10px;
+            margin-top: 5px;
             border-radius: 5px;
         }
 
+        /* Melhorando a legibilidade da pergunta */
+        .pergunta-livros {
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
     </style>
-
 </head>
 <body onload="initGoogleAPI()">
     <div class="container">
@@ -119,10 +129,10 @@
             <input type="password" id="senha" name="senha" required>
 
             <label for="celular">Celular (opcional):</label>
-            <input type="text" id="celular" name="celular" oninput="formatarCelular()">
+            <input type="text" id="celular" name="celular" class="formatted-phone" placeholder="(XX) XXXXX-XXXX">
 
             <label for="serie_2025">Série em 2025:</label>
-            <select id="serie_2025" name="serie_2025">
+            <select id="serie_2025" name="serie_2025" multiple>
                 <option value="G5">G5</option>
                 <option value="1">1º Ano</option>
                 <option value="2">2º Ano</option>
@@ -138,18 +148,20 @@
                 <option value="3_ensino_medio">3º Ano do Ensino Médio</option>
             </select>
             
-            <label class="radio-group">
+            <div class="pergunta-livros">Possui livros para repassar?</div>
+            <div class="sim-nao">
                 <input type="radio" id="temLivrosSim" name="temLivros" value="sim" required> Sim
                 <input type="radio" id="temLivrosNao" name="temLivros" value="não" required> Não
-            </label>
+            </div>
 
-            <div id="livrosRepassar" class="livros-container">
-                <label for="livros">Escolha os livros a serem repassados:</label>
-                <select id="livros" name="livros">
+            <!-- Dropdown de livros, visível quando "Sim" for selecionado -->
+            <div class="livros-dropdown" id="livrosDropdown">
+                <label for="livros">Escolha os livros:</label>
+                <select id="livros" name="livros" multiple>
+                    <!-- As opções de livros serão inseridas aqui -->
                     <option value="livro1">Livro 1</option>
                     <option value="livro2">Livro 2</option>
                     <option value="livro3">Livro 3</option>
-                    <!-- Aqui você pode adicionar os livros conforme a série escolhida -->
                 </select>
             </div>
 
@@ -158,26 +170,31 @@
     </div>
 
     <script>
-        // Função para formatação automática do celular
-        function formatarCelular() {
-            var celular = document.getElementById('celular');
-            var valor = celular.value.replace(/\D/g, ''); // Remove tudo que não for número
-            if (valor.length <= 2) {
-                celular.value = '(' + valor;
-            } else if (valor.length <= 7) {
-                celular.value = '(' + valor.substring(0, 2) + ') ' + valor.substring(2, 7);
+        // Função para formatar o celular
+        const celularInput = document.getElementById('celular');
+        celularInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+            if (value.length <= 2) {
+                value = '(' + value;
+            } else if (value.length <= 7) {
+                value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
             } else {
-                celular.value = '(' + valor.substring(0, 2) + ') ' + valor.substring(2, 7) + '-' + valor.substring(7, 11);
+                value = '(' + value.substring(0, 2) + ') ' + value.substring(2, 7) + '-' + value.substring(7, 11);
             }
-        }
-
-        // Função para exibir os livros ao escolher "Sim"
-        document.getElementById('temLivrosSim').addEventListener('click', function () {
-            document.getElementById('livrosRepassar').style.display = 'block';
+            e.target.value = value;
         });
 
-        document.getElementById('temLivrosNao').addEventListener('click', function () {
-            document.getElementById('livrosRepassar').style.display = 'none';
+        // Exibe ou esconde o dropdown de livros conforme a seleção de "Sim" ou "Não"
+        const temLivrosSim = document.getElementById('temLivrosSim');
+        const temLivrosNao = document.getElementById('temLivrosNao');
+        const livrosDropdown = document.getElementById('livrosDropdown');
+
+        temLivrosSim.addEventListener('change', function() {
+            livrosDropdown.style.display = 'block'; // Exibe o dropdown de livros
+        });
+
+        temLivrosNao.addEventListener('change', function() {
+            livrosDropdown.style.display = 'none'; // Esconde o dropdown de livros
         });
     </script>
 </body>
