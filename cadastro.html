@@ -31,12 +31,17 @@
         }
 
         input, select {
-            width: 100%;
             padding: 10px;
             margin-top: 5px;
             border-radius: 5px;
         }
 
+        /* Diminuindo os campos de nome e senha */
+        #nome, #senha {
+            width: 50%;
+        }
+
+        /* Botão de cadastro maior */
         button {
             padding: 15px 30px;
             background-color: blue;
@@ -45,7 +50,8 @@
             border: none;
             margin-top: 20px;
             cursor: pointer;
-            font-size: 1.2em;
+            font-size: 1.5em;
+            width: 50%;
         }
 
         button:hover {
@@ -97,25 +103,23 @@
             margin-top: 5px;
         }
 
-        /* Ajuste no campo celular */
-        #celular {
-            width: 50%;
-            margin-top: 5px;
-        }
-
-        /* Formatação para celular com parênteses e traço */
-        .formatted-phone {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 5px;
-        }
-
         /* Melhorando a legibilidade da pergunta */
         .pergunta-livros {
             margin-top: 10px;
             font-size: 1.1em;
             font-weight: bold;
+        }
+
+        /* Ajustando o dropdown de séries */
+        #serie_2025 {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        .pergunta-livros {
+            font-size: 1.2em;
+            margin-top: 15px;
         }
     </style>
 </head>
