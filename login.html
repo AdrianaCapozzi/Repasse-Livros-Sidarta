@@ -1,30 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-<style>body {
-    background-color: black;
-    color: lightgray;
-    font-family: Arial, sans-serif;
-}
+    <style>
+        /* Estilo geral da página */
+        body {
+            background-color: black;
+            color: lightgray;
+            font-family: Arial, sans-serif;
+            text-align: center; /* Centraliza o conteúdo */
+        }
 
-a {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: blue;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 1em;
-    margin: 10px 0;
-}
+        h1 {
+            font-size: 2em;
+            margin-top: 20px;
+        }
 
-a:hover {
-    background-color: darkblue;
-}
-</style>
+        /* Estilo dos rótulos e campos de entrada */
+        label {
+            display: block;
+            margin: 15px 0 5px; /* Espaço entre o texto e o campo */
+            font-size: 1.2em;
+        }
 
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            width: 60%; /* Centraliza e ajusta o tamanho */
+            background-color: #333; /* Fundo do campo */
+            color: lightgray; /* Cor do texto */
+        }
+
+        /* Estilo do botão de login */
+        button {
+            padding: 12px 25px;
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        /* Estilo dos links para se comportarem como botões */
+        a {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: blue;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px auto; /* Centraliza com margens */
+        }
+
+        a:hover {
+            background-color: darkblue;
+        }
+    </style>
 </head>
 <body>
     <h1>Login</h1>
