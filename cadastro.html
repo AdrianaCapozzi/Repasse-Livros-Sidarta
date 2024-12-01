@@ -32,8 +32,8 @@
             border-radius: 5px;
         }
 
-        #nome, #senha {
-            width: 60%;
+        #nome, #senha, #celular {
+            width: 50%;
         }
 
         /* Botão de cadastro ajustado */
@@ -64,8 +64,8 @@
         #serie_2025 option:nth-child(5),
         #serie_2025 option:nth-child(6),
         #serie_2025 option:nth-child(7),
-        #serie_2025 option:nth-child(8)
-        #serie_2025 option:nth-child(9), {
+        #serie_2025 option:nth-child(8),
+        #serie_2025 option:nth-child(9) {
             background-color: #33cc33; /* Verde */
         }
 
@@ -74,7 +74,7 @@
         #serie_2025 option:nth-child(11),
         #serie_2025 option:nth-child(12),
         #serie_2025 option:nth-child(13),
-        #serie_2025 option:nth-child(14), {
+        #serie_2025 option:nth-child(14) {
             background-color: #337ab7; /* Azul */
         }
 
@@ -114,6 +114,9 @@
             
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
+
+            <label for="celular">Celular:</label>
+            <input type="tel" id="celular" name="celular" placeholder="(XX) XXXXX-XXXX" required>
 
             <label for="serie_2025">Série em 2025:</label>
             <select id="serie_2025" name="serie_2025" multiple>
