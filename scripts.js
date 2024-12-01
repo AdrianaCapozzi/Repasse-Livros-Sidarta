@@ -8,7 +8,7 @@ function initClient() {
     gapi.client.init({
         apiKey: 'YOUR_API_KEY',
         clientId: 'YOUR_CLIENT_ID',
-        discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+        discoveryDocs: ["https://script.google.com/macros/s/AKfycbwIfF2p8rZXVbdTT51uDDbjPT4JQKPL5kFFki7ZTGHk3EI_uCsxliLT1MnvbdqoD7f8/exec"],
         scope: "https://www.googleapis.com/auth/spreadsheets"
     }).then(function () {
         console.log("API Initialized");
@@ -22,7 +22,7 @@ function authenticate() {
 
 // Função para enviar dados para o Google Sheets
 function sendDataToSheets(data) {
-    const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // ID da planilha
+    const spreadsheetId = '        discoveryDocs: ["https://script.google.com/macros/s/AKfycbwIfF2p8rZXVbdTT51uDDbjPT4JQKPL5kFFki7ZTGHk3EI_uCsxliLT1MnvbdqoD7f8/exec"]; // ID da planilha
     const range = 'Usuarios!A1'; // Aqui você pode escolher o intervalo onde os dados serão inseridos
     const valueRangeBody = {
         "values": data
@@ -59,3 +59,32 @@ document.getElementById("formCadastro").addEventListener("submit", function(e) {
     ];
     sendDataToSheets(dados);
 });
+
+document.getElementById("serie").addEventListener("change", function() {
+    var serie = this.value; // Obtém a série selecionada
+    
+    if (serie) {
+      // Substitua pela URL do seu Google Apps Script
+      var url = 'URL_DO_SEU_SCRIPT?serie=' + encodeURIComponent(serie);
+      
+      // Faz a requisição ao Apps Script
+      fetch(url)
+        .then(response => response.json())
+        .then(livros => {
+          var livrosList = document.getElementById("livros");
+          livrosList.innerHTML = ""; // Limpa a lista de livros anterior
+  
+          // Adiciona cada livro à lista
+          livros.forEach(livro => {
+            var li = document.createElement("li");
+            li.textContent = livro[1]; // Supondo que o nome do livro está na segunda coluna da planilha
+            livrosList.appendChild(li);
+          });
+        })
+        .catch(error => console.error('Erro:', error));
+    } else {
+      // Caso nenhuma série seja selecionada
+      document.getElementById("livros").innerHTML = "<li>Por favor, selecione uma série.</li>";
+    }
+  });
+  
