@@ -38,13 +38,14 @@
         }
 
         button {
-            padding: 10px;
+            padding: 15px 30px;
             background-color: blue;
             color: white;
             border-radius: 15px;
             border: none;
             margin-top: 20px;
             cursor: pointer;
+            font-size: 1.2em;
         }
 
         button:hover {
@@ -88,7 +89,7 @@
         }
 
         .sim-nao input {
-            margin-right: 5px;
+            margin-left: 10px;
         }
 
         .livros-dropdown select {
@@ -150,15 +151,16 @@
             
             <div class="pergunta-livros">Possui livros para repassar?</div>
             <div class="sim-nao">
-                <input type="radio" id="temLivrosSim" name="temLivros" value="sim" required> Sim
-                <input type="radio" id="temLivrosNao" name="temLivros" value="não" required> Não
+                <label for="temLivrosSim">Sim</label>
+                <input type="radio" id="temLivrosSim" name="temLivros" value="sim"> 
+                <label for="temLivrosNao">Não</label>
+                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
             </div>
 
             <!-- Dropdown de livros, visível quando "Sim" for selecionado -->
             <div class="livros-dropdown" id="livrosDropdown">
                 <label for="livros">Escolha os livros:</label>
                 <select id="livros" name="livros" multiple>
-                    <!-- As opções de livros serão inseridas aqui -->
                     <option value="livro1">Livro 1</option>
                     <option value="livro2">Livro 2</option>
                     <option value="livro3">Livro 3</option>
