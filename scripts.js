@@ -65,7 +65,7 @@ document.getElementById("serie").addEventListener("change", function() {
     
     if (serie) {
       // Substitua pela URL do seu Google Apps Script
-      var url = 'URL_DO_SEU_SCRIPT?serie=' + encodeURIComponent(serie);
+      var url = 'https://script.google.com/macros/s/AKfycbwIfF2p8rZXVbdTT51uDDbjPT4JQKPL5kFFki7ZTGHk3EI_uCsxliLT1MnvbdqoD7f8/exec_SCRIPT?serie=' + encodeURIComponent(serie);
       
       // Faz a requisição ao Apps Script
       fetch(url)
