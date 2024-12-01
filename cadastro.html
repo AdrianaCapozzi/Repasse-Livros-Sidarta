@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="script.js" defer></script>
-
     <style>
         body {
             background-color: black;
@@ -36,22 +32,20 @@
             border-radius: 5px;
         }
 
-        /* Diminuindo os campos de nome e senha */
         #nome, #senha {
-            width: 50%;
+            width: 60%;
         }
 
-        /* Botão de cadastro maior */
+        /* Botão de cadastro ajustado */
         button {
-            padding: 15px 30px;
+            padding: 12px 25px;
             background-color: blue;
             color: white;
-            border-radius: 15px;
+            border-radius: 10px;
             border: none;
             margin-top: 20px;
             cursor: pointer;
-            font-size: 1.5em;
-            width: 50%;
+            font-size: 1.2em;
         }
 
         button:hover {
@@ -61,24 +55,25 @@
         /* Ciclo 1: G5 a 3º Ano (laranja) */
         #serie_2025 option:nth-child(1),
         #serie_2025 option:nth-child(2),
-        #serie_2025 option:nth-child(3) {
+        #serie_2025 option:nth-child(3),
+        #serie_2025 option:nth-child(4) {
             background-color: #ff5733; /* Laranja */
         }
 
-        /* Ciclo 2: 2º ao 7º Ano (verde) */
-        #serie_2025 option:nth-child(4),
+        /* Ciclo 2: 4º ao 7º Ano (verde) */
         #serie_2025 option:nth-child(5),
         #serie_2025 option:nth-child(6),
-        #serie_2025 option:nth-child(7) {
+        #serie_2025 option:nth-child(7),
+        #serie_2025 option:nth-child(8) {
             background-color: #33cc33; /* Verde */
         }
 
-        /* Ciclo 3: 8º e 9º Ano e Ensino Médio (azul) */
-        #serie_2025 option:nth-child(8),
+        /* Ciclo 3: 8º e 9º Ano + Ensino Médio (azul) */
         #serie_2025 option:nth-child(9),
         #serie_2025 option:nth-child(10),
         #serie_2025 option:nth-child(11),
-        #serie_2025 option:nth-child(12) {
+        #serie_2025 option:nth-child(12),
+        #serie_2025 option:nth-child(13) {
             background-color: #337ab7; /* Azul */
         }
 
@@ -87,33 +82,19 @@
             margin-top: 10px;
         }
 
-        /* Estilo para as opções de sim/não */
+        /* Alinhamento das opções "Sim" e "Não" */
         .sim-nao {
             display: flex;
             align-items: center;
             margin-top: 10px;
         }
 
-        .sim-nao input {
-            margin-left: 10px;
+        .sim-nao label {
+            margin-right: 10px;
         }
 
         .livros-dropdown select {
-            width: 50%;
-            margin-top: 5px;
-        }
-
-        /* Melhorando a legibilidade da pergunta */
-        .pergunta-livros {
-            margin-top: 10px;
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-
-        /* Ajustando o dropdown de séries */
-        #serie_2025 {
-            width: 100%;
-            padding: 10px;
+            width: 60%;
             margin-top: 5px;
         }
 
@@ -123,7 +104,7 @@
         }
     </style>
 </head>
-<body onload="initGoogleAPI()">
+<body>
     <div class="container">
         <h1>Cadastro de Usuário</h1>
         <form id="formCadastro">
@@ -133,35 +114,31 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
 
-            <label for="celular">Celular (opcional):</label>
-            <input type="text" id="celular" name="celular" class="formatted-phone" placeholder="(XX) XXXXX-XXXX">
-
             <label for="serie_2025">Série em 2025:</label>
             <select id="serie_2025" name="serie_2025" multiple>
                 <option value="G5">G5</option>
-                <option value="1">1º Ano</option>
-                <option value="2">2º Ano</option>
-                <option value="3">3º Ano</option>
-                <option value="4">4º Ano</option>
-                <option value="5">5º Ano</option>
-                <option value="6">6º Ano</option>
-                <option value="7">7º Ano</option>
-                <option value="8">8º Ano</option>
-                <option value="9">9º Ano</option>
-                <option value="1_ensino_medio">1º Ano do Ensino Médio</option>
-                <option value="2_ensino_medio">2º Ano do Ensino Médio</option>
-                <option value="3_ensino_medio">3º Ano do Ensino Médio</option>
+                <option value="1ano">1º Ano</option>
+                <option value="2ano">2º Ano</option>
+                <option value="3ano">3º Ano</option>
+                <option value="4ano">4º Ano</option>
+                <option value="5ano">5º Ano</option>
+                <option value="6ano">6º Ano</option>
+                <option value="7ano">7º Ano</option>
+                <option value="8ano">8º Ano</option>
+                <option value="9ano">9º Ano</option>
+                <option value="1medio">1º Ano do Ensino Médio</option>
+                <option value="2medio">2º Ano do Ensino Médio</option>
+                <option value="3medio">3º Ano do Ensino Médio</option>
             </select>
             
             <div class="pergunta-livros">Possui livros para repassar?</div>
             <div class="sim-nao">
                 <label for="temLivrosSim">Sim</label>
-                <input type="radio" id="temLivrosSim" name="temLivros" value="sim"> 
+                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
                 <label for="temLivrosNao">Não</label>
                 <input type="radio" id="temLivrosNao" name="temLivros" value="não">
             </div>
 
-            <!-- Dropdown de livros, visível quando "Sim" for selecionado -->
             <div class="livros-dropdown" id="livrosDropdown">
                 <label for="livros">Escolha os livros:</label>
                 <select id="livros" name="livros" multiple>
@@ -176,31 +153,17 @@
     </div>
 
     <script>
-        // Função para formatar o celular
-        const celularInput = document.getElementById('celular');
-        celularInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
-            if (value.length <= 2) {
-                value = '(' + value;
-            } else if (value.length <= 7) {
-                value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
-            } else {
-                value = '(' + value.substring(0, 2) + ') ' + value.substring(2, 7) + '-' + value.substring(7, 11);
-            }
-            e.target.value = value;
-        });
-
-        // Exibe ou esconde o dropdown de livros conforme a seleção de "Sim" ou "Não"
+        // Função para exibir/esconder dropdown de livros
         const temLivrosSim = document.getElementById('temLivrosSim');
         const temLivrosNao = document.getElementById('temLivrosNao');
         const livrosDropdown = document.getElementById('livrosDropdown');
 
         temLivrosSim.addEventListener('change', function() {
-            livrosDropdown.style.display = 'block'; // Exibe o dropdown de livros
+            livrosDropdown.style.display = 'block';
         });
 
         temLivrosNao.addEventListener('change', function() {
-            livrosDropdown.style.display = 'none'; // Esconde o dropdown de livros
+            livrosDropdown.style.display = 'none';
         });
     </script>
 </body>
