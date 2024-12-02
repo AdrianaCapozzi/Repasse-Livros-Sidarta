@@ -305,3 +305,31 @@ function atualizarEstiloDropdown(serie) {
         dropdown.style.backgroundColor = cor;
     });
 }
+
+
+serie2024.addEventListener('change', () => {
+    const serie = serie2024.value;
+    if (serie) {
+        atualizarListaLivros('repassar', serie);
+        perguntaNecessarios.style.display = 'block';
+
+        // Atualiza o estilo do dropdown conforme a série selecionada
+        atualizarEstiloDropdown(serie);
+    } else {
+        livrosDropdownRepassar.style.display = 'none';
+        perguntaNecessarios.style.display = 'none';
+        livrosDropdownNecessarios.style.display = 'none';
+    }
+});
+
+document.querySelectorAll('[name="livrosNecessarios"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        const value = e.target.value;
+        if (value === 'sim') {
+            livrosDropdownNecessarios.style.display = 'block';
+            atualizarListaLivros('necessarios', serie2024.value);
+        } else {
+            livrosDropdownNecessarios.style.display = 'none';
+        }
+    });
+});
