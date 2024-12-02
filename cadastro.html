@@ -24,29 +24,71 @@
         label {
             display: block;
             margin-top: 10px;
-            font-size: 1em;
         }
 
-        input, select, button {
+        input, select {
             padding: 10px;
             margin-top: 5px;
             border-radius: 5px;
         }
 
+        #nome, #senha, #celular {
+            width: 50%;
+        }
+
         button {
-            margin-top: 20px;
+            padding: 12px 25px;
             background-color: blue;
             color: white;
+            border-radius: 10px;
             border: none;
-            cursor: pointer;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .livros-options {
             margin-top: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        select {
+            height: 120px;
+        }
+
+        /* Ciclo 1: G5 a 3º Ano (laranja) */
+        #serie_2025 option:nth-child(-n+4) {
+            background-color: #ff5733; /* Laranja */
+        }
+
+        /* Ciclo 2: 4º ao 7º Ano (verde) */
+        #serie_2025 option:nth-child(n+5):nth-child(-n+8) {
+            background-color: #33cc33; /* Verde */
+        }
+
+        /* Ciclo 3: 8º e 9º Ano + Ensino Médio (azul) */
+        #serie_2025 option:nth-child(n+9) {
+            background-color: #337ab7; /* Azul */
+        }
+
+        .livros-dropdown {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .sim-nao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .livros-dropdown select {
+            width: 60%;
+            margin-top: 5px;
+        }
+
+        .pergunta-livros {
+            font-size: 1.2em;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -56,10 +98,16 @@
         <form id="formCadastro">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
-            
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <label for="celular">Celular (opcional):</label>
+            <input type="tel" id="celular" name="celular" placeholder="(XX) XXXXX-XXXX">
+
             <label for="serie_2025">Série em 2025:</label>
-            <select id="serie_2025" name="serie_2025">
-                <option value="">Selecione a série</option>
+            <select id="serie_2025" name="serie_2025" multiple>
+                <option value="G5">G5</option>
                 <option value="1ano">1º Ano</option>
                 <option value="2ano">2º Ano</option>
                 <option value="3ano">3º Ano</option>
@@ -74,36 +122,32 @@
                 <option value="3medio">3º Ano EM</option>
             </select>
 
-            <!-- Livros para repassar -->
-            <div>
-                <label>Possui livros para repassar?</label>
-                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
+            <div class="pergunta-livros">Você tem livros para repassar?</div>
+            <div class="sim-nao">
                 <label for="temLivrosSim">Sim</label>
-                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
+                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
                 <label for="temLivrosNao">Não</label>
+                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
             </div>
 
-            <div id="livrosRepassarContainer" class="hidden livros-options">
-                <label for="livrosRepassar">Selecione os livros para repassar:</label>
-                <select id="livrosRepassar" name="livrosRepassar" multiple>
-                    <!-- As opções serão preenchidas dinamicamente -->
-                </select>
+            <div class="livros-dropdown" id="livrosDropdownRepassar">
+                <label for="livrosRepassar">Escolha os livros para repassar:</label>
+                <select id="livrosRepassar" name="livrosRepassar" multiple></select>
             </div>
 
-            <!-- Livros necessários -->
-            <div>
-                <label>Precisa de livros?</label>
-                <input type="radio" id="precisaLivrosSim" name="precisaLivros" value="sim">
-                <label for="precisaLivrosSim">Sim</label>
-                <input type="radio" id="precisaLivrosNao" name="precisaLivros" value="não">
-                <label for="precisaLivrosNao">Não</label>
+            <div class="pergunta-livros" id="perguntaNecessarios" style="display: none;">
+                Você precisa de livros?
+                <div class="sim-nao">
+                    <label for="livrosSim">Sim</label>
+                    <input type="radio" id="livrosSim" name="livrosNecessarios" value="sim">
+                    <label for="livrosNao">Não</label>
+                    <input type="radio" id="livrosNao" name="livrosNecessarios" value="não">
+                </div>
             </div>
 
-            <div id="livrosNecessariosContainer" class="hidden livros-options">
-                <label for="livrosNecessarios">Selecione os livros necessários:</label>
-                <select id="livrosNecessarios" name="livrosNecessarios" multiple>
-                    <!-- As opções serão preenchidas dinamicamente -->
-                </select>
+            <div class="livros-dropdown" id="livrosDropdownNecessarios" style="display: none;">
+                <label for="livrosNecessarios">Escolha os livros que você precisa:</label>
+                <select id="livrosNecessarios" name="livrosNecessarios" multiple></select>
             </div>
 
             <button type="submit">Cadastrar</button>
@@ -111,53 +155,32 @@
     </div>
 
     <script>
-        // Referências dos elementos
-        const serie2025 = document.getElementById("serie_2025");
-        const temLivrosSim = document.getElementById("temLivrosSim");
-        const temLivrosNao = document.getElementById("temLivrosNao");
-        const precisaLivrosSim = document.getElementById("precisaLivrosSim");
-        const precisaLivrosNao = document.getElementById("precisaLivrosNao");
-        const livrosRepassarContainer = document.getElementById("livrosRepassarContainer");
-        const livrosNecessariosContainer = document.getElementById("livrosNecessariosContainer");
-        const livrosRepassar = document.getElementById("livrosRepassar");
-        const livrosNecessarios = document.getElementById("livrosNecessarios");
+        const temLivrosSim = document.getElementById('temLivrosSim');
+        const temLivrosNao = document.getElementById('temLivrosNao');
+        const livrosDropdownRepassar = document.getElementById('livrosDropdownRepassar');
+        const perguntaNecessarios = document.getElementById('perguntaNecessarios');
+        const livrosSim = document.getElementById('livrosSim');
+        const livrosNao = document.getElementById('livrosNao');
+        const livrosDropdownNecessarios = document.getElementById('livrosDropdownNecessarios');
 
-        // Dados simulados de livros por série
-        const livrosPorSerie = {
-            "1ano": ["Livro A1", "Livro B1"],
-            "2ano": ["Livro A2", "Livro B2"],
-            "3ano": ["Livro A3", "Livro B3"],
-            // Adicione todas as séries aqui
-        };
-
-        // Mostra/oculta opções de livros para repassar
-        temLivrosSim.addEventListener("change", () => {
-            const serieSelecionada = serie2025.value;
-            if (serieSelecionada && livrosPorSerie[serieSelecionada]) {
-                livrosRepassar.innerHTML = livrosPorSerie[serieSelecionada]
-                    .map(livro => `<option value="${livro}">${livro}</option>`)
-                    .join("");
-                livrosRepassarContainer.classList.remove("hidden");
-            }
+        // Função para repassar livros
+        temLivrosSim.addEventListener('change', function () {
+            livrosDropdownRepassar.style.display = 'block';
+            perguntaNecessarios.style.display = 'block';
         });
 
-        temLivrosNao.addEventListener("change", () => {
-            livrosRepassarContainer.classList.add("hidden");
+        temLivrosNao.addEventListener('change', function () {
+            livrosDropdownRepassar.style.display = 'none';
+            perguntaNecessarios.style.display = 'block';
         });
 
-        // Mostra/oculta opções de livros necessários
-        precisaLivrosSim.addEventListener("change", () => {
-            const serieSelecionada = serie2025.value;
-            if (serieSelecionada && livrosPorSerie[serieSelecionada]) {
-                livrosNecessarios.innerHTML = livrosPorSerie[serieSelecionada]
-                    .map(livro => `<option value="${livro}">${livro}</option>`)
-                    .join("");
-                livrosNecessariosContainer.classList.remove("hidden");
-            }
+        // Função para livros necessários
+        livrosSim.addEventListener('change', function () {
+            livrosDropdownNecessarios.style.display = 'block';
         });
 
-        precisaLivrosNao.addEventListener("change", () => {
-            livrosNecessariosContainer.classList.add("hidden");
+        livrosNao.addEventListener('change', function () {
+            livrosDropdownNecessarios.style.display = 'none';
         });
     </script>
 </body>
