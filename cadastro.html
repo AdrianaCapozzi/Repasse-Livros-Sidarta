@@ -24,16 +24,14 @@
         label {
             display: block;
             margin-top: 10px;
+            font-size: 1em;
         }
 
         input, select {
             padding: 10px;
             margin-top: 5px;
             border-radius: 5px;
-        }
-
-        #nome, #senha, #celular {
-            width: 50%;
+            width: 50%; /* Tamanho padrão */
         }
 
         /* Botão de cadastro */
@@ -52,19 +50,24 @@
             background-color: darkblue;
         }
 
-        /* Cores dos ciclos no dropdown */
+        /* Dropdown de série */
+        #serie_2025 {
+            width: 60%; /* Maior largura */
+        }
+
+        /* Estilização das opções do dropdown */
         #serie_2025 option:nth-child(1),
         #serie_2025 option:nth-child(2),
         #serie_2025 option:nth-child(3),
         #serie_2025 option:nth-child(4) {
-            background-color: #ff5733; /* Laranja para ciclo 1 */
+            background-color: orange; /* Ciclo 1 */
         }
 
         #serie_2025 option:nth-child(5),
         #serie_2025 option:nth-child(6),
         #serie_2025 option:nth-child(7),
         #serie_2025 option:nth-child(8) {
-            background-color: #33cc33; /* Verde para ciclo 2 */
+            background-color: green; /* Ciclo 2 */
         }
 
         #serie_2025 option:nth-child(9),
@@ -72,43 +75,31 @@
         #serie_2025 option:nth-child(11),
         #serie_2025 option:nth-child(12),
         #serie_2025 option:nth-child(13) {
-            background-color: #337ab7; /* Azul para ciclo 3 */
+            background-color: blue; /* Ciclo 3 */
         }
 
-        #serie_2025 {
-            width: 60%; /* Aumenta o tamanho do dropdown */
-        }
-
-        .livros-dropdown {
-            display: none;
-            margin-top: 10px;
-        }
-
-        /* Alinhamento dos botões "Sim" e "Não" */
+        /* Alinhamento dos checkboxes */
         .sim-nao {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .livros-dropdown select {
-            width: 60%;
-        }
-
-        .pergunta-livros {
-            font-size: 1.2em;
             margin-top: 15px;
+            font-size: 1.1em;
         }
 
-        /* Perguntas sobre os livros */
+        .sim-nao input {
+            margin-left: 10px;
+        }
+
+        /* Perguntas sobre livros */
         .livros-container {
             margin-top: 20px;
         }
 
         .livros-container label {
+            margin-top: 10px;
             display: block;
-            margin-bottom: 5px;
+        }
+
+        .livros-container select {
+            width: 60%;
         }
     </style>
 </head>
@@ -142,12 +133,12 @@
                 <option value="3medio">3º Ano EM</option>
             </select>
 
-            <div class="pergunta-livros">Possui livros para repassar?</div>
             <div class="sim-nao">
-                <label for="temLivrosSim">Sim</label>
+                <span>Possui livros para repassar?</span>
                 <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
-                <label for="temLivrosNao">Não</label>
+                <label for="temLivrosSim">Sim</label>
                 <input type="radio" id="temLivrosNao" name="temLivros" value="não">
+                <label for="temLivrosNao">Não</label>
             </div>
 
             <div class="livros-container">
