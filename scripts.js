@@ -159,4 +159,14 @@ function obterSerieAnterior(serie) {
   return index > 0 ? series[index - 1] : null;
 }
 
+
+
+function mostrarLivrosRepassar(mostrar) {
+    document.getElementById("livrosRepassar").style.display = mostrar ? "block" : "none";
+}
+
+function mostrarLivrosNecessarios(mostrar) {
+    document.getElementById("livrosNecessarios").style.display = mostrar ? "block" : "none";
+}
+
   
