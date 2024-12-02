@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
-    <p>Seu nome será seu login. O celular é opcional.</p>
     <style>
         body {
             background-color: black;
@@ -31,11 +30,10 @@
             padding: 10px;
             margin-top: 5px;
             border-radius: 5px;
-            width: 60%;
         }
 
-        #serie_2025 {
-            height: 120px; /* Aumenta o tamanho do dropdown */
+        #nome, #senha, #celular {
+            width: 50%;
         }
 
         /* Botão de cadastro */
@@ -54,25 +52,63 @@
             background-color: darkblue;
         }
 
-        /* Cores por ciclo no dropdown */
-        #serie_2025 option:nth-child(5), 
+        /* Cores dos ciclos no dropdown */
+        #serie_2025 option:nth-child(1),
+        #serie_2025 option:nth-child(2),
+        #serie_2025 option:nth-child(3),
+        #serie_2025 option:nth-child(4) {
+            background-color: #ff5733; /* Laranja para ciclo 1 */
+        }
+
+        #serie_2025 option:nth-child(5),
         #serie_2025 option:nth-child(6),
         #serie_2025 option:nth-child(7),
         #serie_2025 option:nth-child(8) {
-            background-color: #33cc33; /* Verde (Ciclo 2) */
+            background-color: #33cc33; /* Verde para ciclo 2 */
         }
 
-        #serie_2025 option:nth-child(9), 
+        #serie_2025 option:nth-child(9),
         #serie_2025 option:nth-child(10),
         #serie_2025 option:nth-child(11),
         #serie_2025 option:nth-child(12),
-        #serie_2025 option:nth-child(13),
-        #serie_2025 option:nth-child(14) {
-            background-color: #337ab7; /* Azul (Ciclo 3) */
+        #serie_2025 option:nth-child(13) {
+            background-color: #337ab7; /* Azul para ciclo 3 */
+        }
+
+        #serie_2025 {
+            width: 60%; /* Aumenta o tamanho do dropdown */
         }
 
         .livros-dropdown {
             display: none;
+            margin-top: 10px;
+        }
+
+        /* Alinhamento dos botões "Sim" e "Não" */
+        .sim-nao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .livros-dropdown select {
+            width: 60%;
+        }
+
+        .pergunta-livros {
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+
+        /* Perguntas sobre os livros */
+        .livros-container {
+            margin-top: 20px;
+        }
+
+        .livros-container label {
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -86,7 +122,7 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
 
-            <label for="celular">Celular (opcional):</label>
+            <label for="celular">Celular:</label>
             <input type="tel" id="celular" name="celular" placeholder="(XX) XXXXX-XXXX">
 
             <label for="serie_2025">Série em 2025:</label>
@@ -106,64 +142,32 @@
                 <option value="3medio">3º Ano EM</option>
             </select>
 
-            <label>Tem livros para repassar?</label>
-            <input type="radio" id="temLivrosSim" name="temLivros" value="sim"> Sim
-            <input type="radio" id="temLivrosNao" name="temLivros" value="não"> Não
-
-            <div id="livrosRepassar" class="livros-dropdown">
-                <label for="livrosRepassarSelect">Quais livros deseja repassar?</label>
-                <select id="livrosRepassarSelect" name="livrosRepassar" multiple></select>
+            <div class="pergunta-livros">Possui livros para repassar?</div>
+            <div class="sim-nao">
+                <label for="temLivrosSim">Sim</label>
+                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
+                <label for="temLivrosNao">Não</label>
+                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
             </div>
 
-            <div id="livrosNecessarios" class="livros-dropdown">
-                <label for="livrosNecessariosSelect">Quais livros você precisa?</label>
-                <select id="livrosNecessariosSelect" name="livrosNecessarios" multiple></select>
+            <div class="livros-container">
+                <label for="livrosRepassar">Quais livros você tem para repassar?</label>
+                <select id="livrosRepassar" name="livrosRepassar" multiple>
+                    <option value="livro1">Livro 1</option>
+                    <option value="livro2">Livro 2</option>
+                    <option value="livro3">Livro 3</option>
+                </select>
+
+                <label for="livrosNecessarios">Quais livros você precisa?</label>
+                <select id="livrosNecessarios" name="livrosNecessarios" multiple>
+                    <option value="livroA">Livro A</option>
+                    <option value="livroB">Livro B</option>
+                    <option value="livroC">Livro C</option>
+                </select>
             </div>
 
             <button type="submit">Cadastrar</button>
         </form>
     </div>
-
-    <script>
-        const serieDropdown = document.getElementById('serie_2025');
-        const livrosRepassar = document.getElementById('livrosRepassar');
-        const livrosNecessarios = document.getElementById('livrosNecessarios');
-        const livrosRepassarSelect = document.getElementById('livrosRepassarSelect');
-        const livrosNecessariosSelect = document.getElementById('livrosNecessariosSelect');
-        const temLivrosSim = document.getElementById('temLivrosSim');
-        const temLivrosNao = document.getElementById('temLivrosNao');
-
-        serieDropdown.addEventListener('change', () => {
-            const selectedOptions = Array.from(serieDropdown.selectedOptions).map(opt => opt.value);
-            atualizarLivros(selectedOptions);
-        });
-
-        temLivrosSim.addEventListener('change', () => {
-            livrosRepassar.style.display = 'block';
-        });
-
-        temLivrosNao.addEventListener('change', () => {
-            livrosRepassar.style.display = 'none';
-        });
-
-        function atualizarLivros(selectedSeries) {
-            // Atualiza opções baseadas nas séries selecionadas
-            const seriesAnteriores = getSeriesAnteriores(selectedSeries);
-            const seriesAtuais = getSeriesAtuais(selectedSeries);
-
-            livrosRepassarSelect.innerHTML = seriesAnteriores.map(s => `<option value="${s}">${s}</option>`).join('');
-            livrosNecessariosSelect.innerHTML = seriesAtuais.map(s => `<option value="${s}">${s}</option>`).join('');
-        }
-
-        function getSeriesAnteriores(series) {
-            // Retorna séries anteriores à selecionada
-            // Exemplo lógico: lógica baseada em ordenação real das séries
-            return ['Livro A', 'Livro B']; // Exemplo fictício
-        }
-
-        function getSeriesAtuais(series) {
-            return ['Livro C', 'Livro D']; // Exemplo fictício
-        }
-    </script>
 </body>
 </html>
