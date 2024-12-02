@@ -283,3 +283,25 @@ function mostrarLivrosRepassar(mostrar) {
 function mostrarLivrosNecessarios(mostrar) {
     document.getElementById("livrosNecessarios").style.display = mostrar ? "block" : "none";
 }
+
+function atualizarEstiloDropdown(serie) {
+    const grupos = {
+        laranja: ["g5", "1ano", "2ano", "3ano"],
+        verde: ["4ano", "5ano", "6ano", "7ano"],
+        azul: ["8ano", "9ano", "1medio", "2medio", "3medio"]
+    };
+
+    let cor = '';
+    if (grupos.laranja.includes(serie)) {
+        cor = 'orange';
+    } else if (grupos.verde.includes(serie)) {
+        cor = 'green';
+    } else if (grupos.azul.includes(serie)) {
+        cor = 'blue';
+    }
+
+    const dropdowns = document.querySelectorAll('.livros-dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.style.backgroundColor = cor;
+    });
+}
