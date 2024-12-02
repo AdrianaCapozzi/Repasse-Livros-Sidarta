@@ -67,11 +67,12 @@
         #serie_2025 option:nth-child(6),
         #serie_2025 option:nth-child(7),
         #serie_2025 option:nth-child(8),
-        #serie_2025 option:nth-child(9) {
+         {
             background-color: #33cc33; /* Verde */
         }
 
         /* Ciclo 3: 8º e 9º Ano + Ensino Médio (azul) */
+        #serie_2025 option:nth-child(9)
         #serie_2025 option:nth-child(10),
         #serie_2025 option:nth-child(11),
         #serie_2025 option:nth-child(12),
@@ -179,5 +180,28 @@
             livrosDropdown.style.display = 'none';
         });
     </script>
+
+    <!-- Pergunta sobre livros para repassar -->
+  <div id="pergunta-repassar" style="display: none;">
+    <label>Tem livros para repassar?</label>
+    <button type="button" id="btn-sim">Sim</button>
+    <button type="button" id="btn-nao">Não</button>
+  </div>
+
+  <!-- Campo para indicar os livros para repassar -->
+  <div id="livros-repassar" style="display: none;">
+    <label>Quais livros você deseja repassar?</label>
+    <select id="livros-repassar-select" name="livros-repassar" multiple></select>
+  </div>
+
+  <!-- Campo para indicar os livros necessários -->
+  <div id="livros-necessarios" style="display: none;">
+    <label>Quais livros você precisa?</label>
+    <select id="livros-necessarios-select" name="livros-necessarios" multiple></select>
+  </div>
+  
+  <button type="submit" id="btn-submit">Finalizar Cadastro</button>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
