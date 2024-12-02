@@ -8,7 +8,7 @@ function initClient() {
     gapi.client.init({
         apiKey: 'YOUR_API_KEY',
         clientId: 'YOUR_CLIENT_ID',
-        discoveryDocs: ["https://script.google.com/macros/s/AKfycbwIfF2p8rZXVbdTT51uDDbjPT4JQKPL5kFFki7ZTGHk3EI_uCsxliLT1MnvbdqoD7f8/exec"],
+        discoveryDocs: ["https://script.google.com/macros/s/AKfycbzruVrw38y-YXiweZSyKJZTKtiTl8VOwMEkOdA4ZQNkGJ8evkOgJbjiRnzb2XQ9JD2H/exec"],
         scope: "https://www.googleapis.com/auth/spreadsheets"
     }).then(function () {
         console.log("API Initialized");
@@ -22,7 +22,7 @@ function authenticate() {
 
 // Função para enviar dados para o Google Sheets
 function sendDataToSheets(data) {
-    const spreadsheetId = '        discoveryDocs: ["https://script.google.com/macros/s/AKfycbwIfF2p8rZXVbdTT51uDDbjPT4JQKPL5kFFki7ZTGHk3EI_uCsxliLT1MnvbdqoD7f8/exec"]; // ID da planilha
+    const spreadsheetId = '        discoveryDocs: ["https://script.google.com/macros/s/AKfycbzruVrw38y-YXiweZSyKJZTKtiTl8VOwMEkOdA4ZQNkGJ8evkOgJbjiRnzb2XQ9JD2H/exec"]; // ID da planilha
     const range = 'Usuarios!A1'; // Aqui você pode escolher o intervalo onde os dados serão inseridos
     const valueRangeBody = {
         "values": data
@@ -65,7 +65,7 @@ document.getElementById("serie").addEventListener("change", function() {
     
     if (serie) {
       // Substitua pela URL do seu Google Apps Script
-      var url = 'https://script.google.com/macros/s/AKfycbwIfF2p8rZXVbdTT51uDDbjPT4JQKPL5kFFki7ZTGHk3EI_uCsxliLT1MnvbdqoD7f8/exec_SCRIPT?serie=' + encodeURIComponent(serie);
+      var url = 'https://script.google.com/macros/s/AKfycbzruVrw38y-YXiweZSyKJZTKtiTl8VOwMEkOdA4ZQNkGJ8evkOgJbjiRnzb2XQ9JD2H/exec' + encodeURIComponent(serie);
       
       // Faz a requisição ao Apps Script
       fetch(url)
