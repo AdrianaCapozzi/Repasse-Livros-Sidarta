@@ -107,42 +107,56 @@
                 <option value="3medio">3º Ano EM</option>
             </select>
 
+            <!-- Livros para repassar -->
+            <div class="pergunta-livros">Você tem livros para repassar?</div>
+            <div class="sim-nao">
+                <label for="temLivrosSim">Sim</label>
+                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
+                <label for="temLivrosNao">Não</label>
+                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
+            </div>
+
+            <div class="livros-dropdown" id="livrosDropdownRepassar">
+                <label for="livrosRepassar">Selecione os livros que deseja repassar:</label>
+                <div id="listaLivrosRepassar"></div>
+            </div>
+
             <!-- Livros necessários -->
-            <div class="pergunta-livros" id="perguntaLivrosSeguinte" style="display: none;">
+            <div class="pergunta-livros" id="perguntaNecessarios" style="display: none;">
                 Você precisa dos livros da série seguinte?
                 <div class="sim-nao">
-                    <label for="livrosSeguinteSim">Sim</label>
-                    <input type="radio" id="livrosSeguinteSim" name="livrosSeguinte" value="sim">
-                    <label for="livrosSeguinteNao">Não</label>
-                    <input type="radio" id="livrosSeguinteNao" name="livrosSeguinte" value="não">
+                    <label for="livrosNecessariosSim">Sim</label>
+                    <input type="radio" id="livrosNecessariosSim" name="livrosNecessarios" value="sim">
+                    <label for="livrosNecessariosNao">Não</label>
+                    <input type="radio" id="livrosNecessariosNao" name="livrosNecessarios" value="não">
                 </div>
             </div>
 
-            <div class="livros-dropdown" id="livrosDropdownSeguinte" style="display: none;">
-                <label for="livrosSeguinte">Selecione os livros da série seguinte:</label>
-                <div id="listaLivrosSeguinte"></div>
+            <div class="livros-dropdown" id="livrosDropdownNecessarios" style="display: none;">
+                <label for="livrosNecessarios">Livros da próxima série:</label>
+                <div id="listaLivrosNecessarios"></div>
             </div>
         </form>
     </div>
 
     <script>
         const livros = {
-            g5: ["O que é preciso pra ser rei? (1º bimestre)", "Carona (2º bimestre)", "A revolta dos gizes de cera (3º bimestre)", "O pássaro encantado (4º bimestre)", "Bichodário (do 1º ao 4º bimestre)"],
-            "1ano": ["Ligamundo matemática (livro e caderno)", "Achou? (1º bimestre)", "Monstro azul (2º bimestre)", "Mesma nova história (3º bimestre)", "Os vizinhos (4º bimestre)", "Estranha madame Mizu (1º semestre)", "Meu primeiro livro de contos de fadas (2º semestre)", "As férias do pequeno Nicolau (2º semestre)"],
-            "2ano": ["Livro G", "Livro H"],
-            "3ano": ["Livro I", "Livro J"],
-            "4ano": ["Livro K", "Livro L"],
-            "5ano": ["Livro M", "Livro N"],
-            "6ano": ["Livro O", "Livro P"],
-            "7ano": ["Livro Q", "Livro R"],
-            "8ano": ["Livro S", "Livro T"],
-            "9ano": ["Livro U", "Livro V"],
-            "1medio": ["Livro W", "Livro X"],
-            "2medio": ["Livro Y", "Livro Z"],
-            "3medio": ["Livro AA", "Livro BB"]
+            g5: ["Livros G5: Aventura Matemática", "Português para Crianças", "História e Sociedade - G5"],
+            "1ano": ["Matemática 1º Ano", "Português 1º Ano", "Geografia do Mundo 1º Ano"],
+            "2ano": ["Matemática 2º Ano", "Português 2º Ano", "Geografia do Brasil 2º Ano"],
+            "3ano": ["Matemática 3º Ano", "Português 3º Ano", "História Antiga 3º Ano"],
+            "4ano": ["Matemática 4º Ano", "Geografia 4º Ano", "História Medieval 4º Ano"],
+            "5ano": ["Matemática 5º Ano", "Português 5º Ano", "História do Brasil 5º Ano"],
+            "6ano": ["Matemática 6º Ano", "Português 6º Ano", "Geografia do Mundo 6º Ano"],
+            "7ano": ["Matemática 7º Ano", "Português 7º Ano", "História Moderna 7º Ano"],
+            "8ano": ["Matemática 8º Ano", "Português 8º Ano", "Geografia do Brasil 8º Ano"],
+            "9ano": ["Matemática 9º Ano", "Português 9º Ano", "História Contemporânea 9º Ano"],
+            "1medio": ["Matemática 1º Ano EM", "Física 1º Ano EM", "Geografia 1º Ano EM"],
+            "2medio": ["Matemática 2º Ano EM", "Física 2º Ano EM", "Química 2º Ano EM"],
+            "3medio": ["Matemática 3º Ano EM", "Física 3º Ano EM", "Química 3º Ano EM"]
         };
 
-        const proximaSerie = {
+        const proximasSeries = {
             g5: "1ano",
             "1ano": "2ano",
             "2ano": "3ano",
@@ -158,25 +172,40 @@
         };
 
         const serie2024 = document.getElementById('serie2024');
-        const livrosDropdownSeguinte = document.getElementById('livrosDropdownSeguinte');
-        const listaLivrosSeguinte = document.getElementById('listaLivrosSeguinte');
-        const perguntaLivrosSeguinte = document.getElementById('perguntaLivrosSeguinte');
+        const temLivrosSim = document.getElementById('temLivrosSim');
+        const temLivrosNao = document.getElementById('temLivrosNao');
+        const livrosDropdownRepassar = document.getElementById('livrosDropdownRepassar');
+        const listaLivrosRepassar = document.getElementById('listaLivrosRepassar');
+        const perguntaNecessarios = document.getElementById('perguntaNecessarios');
+        const livrosDropdownNecessarios = document.getElementById('livrosDropdownNecessarios');
+        const listaLivrosNecessarios = document.getElementById('listaLivrosNecessarios');
 
         serie2024.addEventListener('change', () => {
-            perguntaLivrosSeguinte.style.display = serie2024.value ? 'block' : 'none';
+            const serie = serie2024.value;
+            if (serie) {
+                atualizarListaLivros('repassar', serie);
+                perguntaNecessarios.style.display = 'block';
+            } else {
+                livrosDropdownRepassar.style.display = 'none';
+                perguntaNecessarios.style.display = 'none';
+                livrosDropdownNecessarios.style.display = 'none';
+            }
         });
 
-        document.getElementById('livrosSeguinteSim').addEventListener('change', () => {
-            const proxima = proximaSerie[serie2024.value];
-            livrosDropdownSeguinte.style.display = 'block';
-            listaLivrosSeguinte.innerHTML = livros[proxima]?.map(
-                livro => `<div><input type="checkbox" name="livrosSeguinte" value="${livro}">${livro}</div>`
-            ).join('') || "<p>Nenhum livro disponível.</p>";
+        temLivrosSim.addEventListener('change', () => {
+            livrosDropdownRepassar.style.display = 'block';
         });
 
-        document.getElementById('livrosSeguinteNao').addEventListener('change', () => {
-            livrosDropdownSeguinte.style.display = 'none';
+        temLivrosNao.addEventListener('change', () => {
+            livrosDropdownRepassar.style.display = 'none';
         });
+
+        function atualizarListaLivros(tipo, serie) {
+            const livrosLista = tipo === 'repassar' ? livros[serie] : livros[proximasSeries[serie]] || [];
+            const listaElement = tipo === 'repassar' ? listaLivrosRepassar : listaLivrosNecessarios;
+
+            listaElement.innerHTML = livrosLista.map(livro => `<div><input type="checkbox" id="${livro}" name="livros">${livro}</div>`).join('');
+        }
     </script>
 </body>
 </html>
