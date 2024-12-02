@@ -285,7 +285,7 @@ function mostrarLivrosNecessarios(mostrar) {
 }
 
 function atualizarEstiloDropdown(serie) {
-    const grupos = {
+    const series = {
         laranja: ["g5", "1ano", "2ano", "3ano"],
         verde: ["4ano", "5ano", "6ano", "7ano"],
         azul: ["8ano", "9ano", "1medio", "2medio", "3medio"]
