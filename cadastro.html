@@ -107,42 +107,28 @@
                 <option value="3medio">3º Ano EM</option>
             </select>
 
-            <!-- Livros para repassar -->
-            <div class="pergunta-livros">Você tem livros para repassar?</div>
-            <div class="sim-nao">
-                <label for="temLivrosSim">Sim</label>
-                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
-                <label for="temLivrosNao">Não</label>
-                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
-            </div>
-
-            <div class="livros-dropdown" id="livrosDropdownRepassar">
-                <label for="livrosRepassar">Selecione os livros que deseja repassar:</label>
-                <div id="listaLivrosRepassar"></div>
-            </div>
-
             <!-- Livros necessários -->
-            <div class="pergunta-livros" id="perguntaNecessarios" style="display: none;">
-                Você precisa de livros?
+            <div class="pergunta-livros" id="perguntaLivrosSeguinte" style="display: none;">
+                Você precisa dos livros da série seguinte?
                 <div class="sim-nao">
-                    <label for="livrosNecessariosSim">Sim</label>
-                    <input type="radio" id="livrosNecessariosSim" name="livrosNecessarios" value="sim">
-                    <label for="livrosNecessariosNao">Não</label>
-                    <input type="radio" id="livrosNecessariosNao" name="livrosNecessarios" value="não">
+                    <label for="livrosSeguinteSim">Sim</label>
+                    <input type="radio" id="livrosSeguinteSim" name="livrosSeguinte" value="sim">
+                    <label for="livrosSeguinteNao">Não</label>
+                    <input type="radio" id="livrosSeguinteNao" name="livrosSeguinte" value="não">
                 </div>
             </div>
 
-            <div class="livros-dropdown" id="livrosDropdownNecessarios" style="display: none;">
-                <label for="livrosNecessarios">Selecione os livros que precisa:</label>
-                <div id="listaLivrosNecessarios"></div>
+            <div class="livros-dropdown" id="livrosDropdownSeguinte" style="display: none;">
+                <label for="livrosSeguinte">Selecione os livros da série seguinte:</label>
+                <div id="listaLivrosSeguinte"></div>
             </div>
         </form>
     </div>
 
     <script>
         const livros = {
-            g5: ["O que é preciso pra ser rei? (1º bimestre)", "Carona (2º bimestre) ", "A revolta dos gizes de cera (3º bimestre)", "O pássaro encantado (4º bimestre)", "Bichodário (do 1º bimestre ao 4º bimestre)"],
-            "1ano": ["Ligamundo  matemática (livro e caderno de atividades)", "Achou? (1º bimestre)", "Monstro azul (2º bimestre)", "Mesma nova história (3º bimestre)", "Os vizinhos (4º bimestre)", "Estranha madame Mizu (1º semestre)", "Meu primeiro livro de contos de fadas (2º semestre)", "As férias do pequeno Nicolau (2º semestre)"],
+            g5: ["O que é preciso pra ser rei? (1º bimestre)", "Carona (2º bimestre)", "A revolta dos gizes de cera (3º bimestre)", "O pássaro encantado (4º bimestre)", "Bichodário (do 1º ao 4º bimestre)"],
+            "1ano": ["Ligamundo matemática (livro e caderno)", "Achou? (1º bimestre)", "Monstro azul (2º bimestre)", "Mesma nova história (3º bimestre)", "Os vizinhos (4º bimestre)", "Estranha madame Mizu (1º semestre)", "Meu primeiro livro de contos de fadas (2º semestre)", "As férias do pequeno Nicolau (2º semestre)"],
             "2ano": ["Livro G", "Livro H"],
             "3ano": ["Livro I", "Livro J"],
             "4ano": ["Livro K", "Livro L"],
@@ -156,42 +142,41 @@
             "3medio": ["Livro AA", "Livro BB"]
         };
 
+        const proximaSerie = {
+            g5: "1ano",
+            "1ano": "2ano",
+            "2ano": "3ano",
+            "3ano": "4ano",
+            "4ano": "5ano",
+            "5ano": "6ano",
+            "6ano": "7ano",
+            "7ano": "8ano",
+            "8ano": "9ano",
+            "9ano": "1medio",
+            "1medio": "2medio",
+            "2medio": "3medio"
+        };
+
         const serie2024 = document.getElementById('serie2024');
-        const temLivrosSim = document.getElementById('temLivrosSim');
-        const temLivrosNao = document.getElementById('temLivrosNao');
-        const livrosDropdownRepassar = document.getElementById('livrosDropdownRepassar');
-        const listaLivrosRepassar = document.getElementById('listaLivrosRepassar');
-        const perguntaNecessarios = document.getElementById('perguntaNecessarios');
-        const livrosDropdownNecessarios = document.getElementById('livrosDropdownNecessarios');
-        const listaLivrosNecessarios = document.getElementById('listaLivrosNecessarios');
+        const livrosDropdownSeguinte = document.getElementById('livrosDropdownSeguinte');
+        const listaLivrosSeguinte = document.getElementById('listaLivrosSeguinte');
+        const perguntaLivrosSeguinte = document.getElementById('perguntaLivrosSeguinte');
 
-        temLivrosSim.addEventListener('change', () => {
-            livrosDropdownRepassar.style.display = 'block';
-            perguntaNecessarios.style.display = 'block';
-            atualizarListaLivros('repassar');
+        serie2024.addEventListener('change', () => {
+            perguntaLivrosSeguinte.style.display = serie2024.value ? 'block' : 'none';
         });
 
-        temLivrosNao.addEventListener('change', () => {
-            livrosDropdownRepassar.style.display = 'none';
-            perguntaNecessarios.style.display = 'block';
+        document.getElementById('livrosSeguinteSim').addEventListener('change', () => {
+            const proxima = proximaSerie[serie2024.value];
+            livrosDropdownSeguinte.style.display = 'block';
+            listaLivrosSeguinte.innerHTML = livros[proxima]?.map(
+                livro => `<div><input type="checkbox" name="livrosSeguinte" value="${livro}">${livro}</div>`
+            ).join('') || "<p>Nenhum livro disponível.</p>";
         });
 
-        document.getElementById('livrosNecessariosSim').addEventListener('change', () => {
-            livrosDropdownNecessarios.style.display = 'block';
-            atualizarListaLivros('necessarios');
+        document.getElementById('livrosSeguinteNao').addEventListener('change', () => {
+            livrosDropdownSeguinte.style.display = 'none';
         });
-
-        document.getElementById('livrosNecessariosNao').addEventListener('change', () => {
-            livrosDropdownNecessarios.style.display = 'none';
-        });
-
-        function atualizarListaLivros(tipo) {
-            const serie = serie2024.value;
-            const lista = tipo === 'repassar' ? listaLivrosRepassar : listaLivrosNecessarios;
-            lista.innerHTML = livros[serie]?.map(
-                livro => `<div><input type="checkbox" name="${tipo}" value="${livro}">${livro}</div>`
-            ).join('') || "<p>Selecione uma série válida.</p>";
-        }
     </script>
 </body>
 </html>
