@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
-<p>Seu nome será seu login. O celular não é obrigatório</p>
-
+    <p>Seu nome será seu login. O celular é opcional.</p>
     <style>
         body {
             background-color: black;
@@ -32,13 +31,14 @@
             padding: 10px;
             margin-top: 5px;
             border-radius: 5px;
+            width: 60%;
         }
 
-        #nome, #senha, #celular {
-            width: 50%;
+        #serie_2025 {
+            height: 120px; /* Aumenta o tamanho do dropdown */
         }
 
-        /* Botão de cadastro ajustado */
+        /* Botão de cadastro */
         button {
             padding: 12px 25px;
             background-color: blue;
@@ -54,57 +54,25 @@
             background-color: darkblue;
         }
 
-        /* Ciclo 1: G5 a 3º Ano (laranja) */
-        #serie_2025 option:nth-child(1),
-        #serie_2025 option:nth-child(2),
-        #serie_2025 option:nth-child(3),
-        #serie_2025 option:nth-child(4) {
-            background-color: #ff5733; /* Laranja */
-        }
-
-        /* Ciclo 2: 4º ao 7º Ano (verde) */
-        #serie_2025 option:nth-child(5),
+        /* Cores por ciclo no dropdown */
+        #serie_2025 option:nth-child(5), 
         #serie_2025 option:nth-child(6),
         #serie_2025 option:nth-child(7),
-        #serie_2025 option:nth-child(8),
-         {
-            background-color: #33cc33; /* Verde */
+        #serie_2025 option:nth-child(8) {
+            background-color: #33cc33; /* Verde (Ciclo 2) */
         }
 
-        /* Ciclo 3: 8º e 9º Ano + Ensino Médio (azul) */
-        #serie_2025 option:nth-child(9)
+        #serie_2025 option:nth-child(9), 
         #serie_2025 option:nth-child(10),
         #serie_2025 option:nth-child(11),
         #serie_2025 option:nth-child(12),
         #serie_2025 option:nth-child(13),
         #serie_2025 option:nth-child(14) {
-            background-color: #337ab7; /* Azul */
+            background-color: #337ab7; /* Azul (Ciclo 3) */
         }
 
         .livros-dropdown {
             display: none;
-            margin-top: 10px;
-        }
-
-        /* Alinhamento das opções "Sim" e "Não" */
-        .sim-nao {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .sim-nao label {
-            margin-right: 10px;
-        }
-
-        .livros-dropdown select {
-            width: 60%;
-            margin-top: 5px;
-        }
-
-        .pergunta-livros {
-            font-size: 1.2em;
-            margin-top: 15px;
         }
     </style>
 </head>
@@ -118,8 +86,8 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
 
-            <label for="celular">Celular:</label>
-            <input type="tel" id="celular" name="celular" placeholder="(XX) XXXXX-XXXX" required>
+            <label for="celular">Celular (opcional):</label>
+            <input type="tel" id="celular" name="celular" placeholder="(XX) XXXXX-XXXX">
 
             <label for="serie_2025">Série em 2025:</label>
             <select id="serie_2025" name="serie_2025" multiple>
@@ -138,28 +106,18 @@
                 <option value="3medio">3º Ano EM</option>
             </select>
 
-             <!-- Local onde os livros serão exibidos -->
-  <h2>Livros Disponíveis:</h2>
-  <ul id="livros"></ul>
+            <label>Tem livros para repassar?</label>
+            <input type="radio" id="temLivrosSim" name="temLivros" value="sim"> Sim
+            <input type="radio" id="temLivrosNao" name="temLivros" value="não"> Não
 
-  <!-- Incluindo o arquivo JavaScript -->
-  <script src="scripts.js"></script>
-            
-            <div class="pergunta-livros">Possui livros para repassar?</div>
-            <div class="sim-nao">
-                <label for="temLivrosSim">Sim</label>
-                <input type="radio" id="temLivrosSim" name="temLivros" value="sim">
-                <label for="temLivrosNao">Não</label>
-                <input type="radio" id="temLivrosNao" name="temLivros" value="não">
+            <div id="livrosRepassar" class="livros-dropdown">
+                <label for="livrosRepassarSelect">Quais livros deseja repassar?</label>
+                <select id="livrosRepassarSelect" name="livrosRepassar" multiple></select>
             </div>
 
-            <div class="livros-dropdown" id="livrosDropdown">
-                <label for="livros">Escolha os livros:</label>
-                <select id="livros" name="livros" multiple>
-                    <option value="livro1">Livro 1</option>
-                    <option value="livro2">Livro 2</option>
-                    <option value="livro3">Livro 3</option>
-                </select>
+            <div id="livrosNecessarios" class="livros-dropdown">
+                <label for="livrosNecessariosSelect">Quais livros você precisa?</label>
+                <select id="livrosNecessariosSelect" name="livrosNecessarios" multiple></select>
             </div>
 
             <button type="submit">Cadastrar</button>
@@ -167,41 +125,45 @@
     </div>
 
     <script>
-        // Função para exibir/esconder dropdown de livros
+        const serieDropdown = document.getElementById('serie_2025');
+        const livrosRepassar = document.getElementById('livrosRepassar');
+        const livrosNecessarios = document.getElementById('livrosNecessarios');
+        const livrosRepassarSelect = document.getElementById('livrosRepassarSelect');
+        const livrosNecessariosSelect = document.getElementById('livrosNecessariosSelect');
         const temLivrosSim = document.getElementById('temLivrosSim');
         const temLivrosNao = document.getElementById('temLivrosNao');
-        const livrosDropdown = document.getElementById('livrosDropdown');
 
-        temLivrosSim.addEventListener('change', function() {
-            livrosDropdown.style.display = 'block';
+        serieDropdown.addEventListener('change', () => {
+            const selectedOptions = Array.from(serieDropdown.selectedOptions).map(opt => opt.value);
+            atualizarLivros(selectedOptions);
         });
 
-        temLivrosNao.addEventListener('change', function() {
-            livrosDropdown.style.display = 'none';
+        temLivrosSim.addEventListener('change', () => {
+            livrosRepassar.style.display = 'block';
         });
+
+        temLivrosNao.addEventListener('change', () => {
+            livrosRepassar.style.display = 'none';
+        });
+
+        function atualizarLivros(selectedSeries) {
+            // Atualiza opções baseadas nas séries selecionadas
+            const seriesAnteriores = getSeriesAnteriores(selectedSeries);
+            const seriesAtuais = getSeriesAtuais(selectedSeries);
+
+            livrosRepassarSelect.innerHTML = seriesAnteriores.map(s => `<option value="${s}">${s}</option>`).join('');
+            livrosNecessariosSelect.innerHTML = seriesAtuais.map(s => `<option value="${s}">${s}</option>`).join('');
+        }
+
+        function getSeriesAnteriores(series) {
+            // Retorna séries anteriores à selecionada
+            // Exemplo lógico: lógica baseada em ordenação real das séries
+            return ['Livro A', 'Livro B']; // Exemplo fictício
+        }
+
+        function getSeriesAtuais(series) {
+            return ['Livro C', 'Livro D']; // Exemplo fictício
+        }
     </script>
-
-    <!-- Pergunta sobre livros para repassar -->
-  <div id="pergunta-repassar" style="display: none;">
-    <label>Tem livros para repassar?</label>
-    <button type="button" id="btn-sim">Sim</button>
-    <button type="button" id="btn-nao">Não</button>
-  </div>
-
-  <!-- Campo para indicar os livros para repassar -->
-  <div id="livros-repassar" style="display: none;">
-    <label>Quais livros você deseja repassar?</label>
-    <select id="livros-repassar-select" name="livros-repassar" multiple></select>
-  </div>
-
-  <!-- Campo para indicar os livros necessários -->
-  <div id="livros-necessarios" style="display: none;">
-    <label>Quais livros você precisa?</label>
-    <select id="livros-necessarios-select" name="livros-necessarios" multiple></select>
-  </div>
-  
-  <button type="submit" id="btn-submit">Finalizar Cadastro</button>
-
-  <script src="scripts.js"></script>
 </body>
 </html>
