@@ -207,5 +207,19 @@
             listaElement.innerHTML = livrosLista.map(livro => `<div><input type="checkbox" id="${livro}" name="livros">${livro}</div>`).join('');
         }
     </script>
+
+<div>
+    <button type="button" id="botaoCadastrar" onclick="redirecionarParaPerfil()">Cadastrar</button>
+</div>
+
+
+
+<script>
+    function redirecionarParaPerfil() {
+        window.location.href = "perfil.html";
+    }
+</script>
+
+
 </body>
 </html>
