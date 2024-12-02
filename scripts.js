@@ -326,10 +326,30 @@ document.querySelectorAll('[name="livrosNecessarios"]').forEach(radio => {
     radio.addEventListener('change', (e) => {
         const value = e.target.value;
         if (value === 'sim') {
+            // Mostra o dropdown e atualiza os livros da próxima série
             livrosDropdownNecessarios.style.display = 'block';
-            atualizarListaLivros('necessarios', serie2024.value);
+            const serieAtual = serie2024.value; // Série selecionada
+            const proximaSerie = calcularProximaSerie(serieAtual);
+            if (proximaSerie) {
+                atualizarListaLivros('necessarios', proximaSerie);
+            }
         } else {
+            // Esconde o dropdown
             livrosDropdownNecessarios.style.display = 'none';
         }
     });
 });
+
+
+function calcularProximaSerie(serieAtual) {
+    const series = ["g5", "1ano", "2ano", "3ano", "4ano", "5ano", "6ano", "7ano", "8ano", "9ano", "1medio", "2medio", "3medio"];
+    const indiceAtual = series.indexOf(serieAtual);
+    if (indiceAtual !== -1 && indiceAtual < series.length - 1) {
+        return series[indiceAtual + 1]; // Retorna a próxima série
+    }
+    return null; // Caso não exista próxima série
+}
+
+
+
+
