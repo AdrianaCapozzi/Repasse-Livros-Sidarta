@@ -170,3 +170,116 @@ function mostrarLivrosNecessarios(mostrar) {
 }
 
   
+
+
+// Livros por série (Ciclo 1)
+const livros = {
+    g5: [
+        "O que é preciso pra ser rei? (1º bimestre)",
+        "Carona (2º bimestre)",
+        "A revolta dos gizes de cera (3º bimestre)",
+        "O pássaro encantado (4º bimestre)",
+        "Bichodário (do 1º bimestre ao 4º bimestre)"
+    ],
+    "1ano": [
+        "Ligamundo matemática (livro e caderno de atividades)",
+        "Achou? (1º bimestre)",
+        "Monstro azul (2º bimestre)",
+        "Mesma nova história (3º bimestre)",
+        "Os vizinhos (4º bimestre)",
+        "Estranha madame Mizu (1º semestre)",
+        "Meu primeiro livro de contos de fadas (2º semestre)",
+        "As férias do pequeno Nicolau (2º semestre)"
+    ],
+    "2ano": [
+        "Ligamundo matemática (livro e caderno de atividades)",
+        "De volta (1º bimestre)",
+        "As roupas novas dos reis (2º bimestre)",
+        "Minha Família Enauenê (3º bimestre)",
+        "Carol (4º bimestre)",
+        "Nove novos contos de fadas e de princesas (2º semestre)",
+        "Noite de brinquedo (2º semestre)",
+        "Science Skills 2 AB W/Online Activities"
+    ],
+    "3ano": [
+        "Buriti Plus Português (caderno de atividades)",
+        "Lola y Leo Paso a Paso LIBRO DEL ALUMNO 1 (2024) 2 (2025)",
+        "Ligamundo matemática (livro e caderno de atividades)",
+        "Science Skills 3 AB W/Online Activities",
+        "Muito esquisito (1º bimestre)",
+        "Diário das águas (2º bimestre)",
+        "Álbum de família (3º bimestre)",
+        "Um dia, um rio (4º bimestre)",
+        "Mania de explicação: peça em seis atos (2º semestre)",
+        "Diário de Pilar na Amazônia - Urgente! (nova edição) (2º semestre)"
+    ]
+};
+
+// Atualizar livros para repassar
+function atualizarLivrosRepassar() {
+    const serie2024 = document.getElementById("serie2024").value;
+    const listaRepassar = document.getElementById("listaLivrosRepassar");
+
+    if (livros[serie2024]) {
+        listaRepassar.innerHTML = livros[serie2024]
+            .map(livro => `<div><input type="checkbox" name="livros_repassar" value="${livro}"><label>${livro}</label></div>`)
+            .join("");
+    } else {
+        listaRepassar.innerHTML = "<p>Nenhum livro disponível para esta série.</p>";
+    }
+}
+
+// Atualizar livros necessários
+function atualizarLivrosNecessarios() {
+    const serie2025 = document.getElementById("serie2025").value;
+    const listaNecessarios = document.getElementById("listaLivrosNecessarios");
+
+    if (livros[serie2025]) {
+        listaNecessarios.innerHTML = livros[serie2025]
+            .map(livro => `<div><input type="checkbox" name="livros_necessarios" value="${livro}"><label>${livro}</label></div>`)
+            .join("");
+    } else {
+        listaNecessarios.innerHTML = "<p>Nenhum livro disponível para esta série.</p>";
+    }
+}
+
+// Enviar dados para Google Sheets
+function sendDataToSheets(data) {
+    const spreadsheetId = 'YOUR_SPREADSHEET_ID';
+    const range = 'Usuarios!A1';
+    const valueRangeBody = { "values": data };
+
+    gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: spreadsheetId,
+        range: range,
+        valueInputOption: "RAW",
+        resource: valueRangeBody
+    }).then(response => {
+        console.log('Dados enviados:', response);
+    }).catch(error => {
+        console.error('Erro ao enviar dados:', error);
+    });
+}
+
+// Coleta e envio dos dados do formulário
+document.getElementById("formCadastro").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const senha = document.getElementById("senha").value;
+    const celular = document.getElementById("celular").value;
+    const serie = document.getElementById("serie2025").value;
+    const temLivros = document.querySelector('input[name="temLivros"]:checked').value;
+
+    const dados = [[nome, senha, celular, serie, temLivros]];
+    sendDataToSheets(dados);
+});
+
+// Função para exibir ou ocultar seções
+function mostrarLivrosRepassar(mostrar) {
+    document.getElementById("livrosRepassar").style.display = mostrar ? "block" : "none";
+}
+
+function mostrarLivrosNecessarios(mostrar) {
+    document.getElementById("livrosNecessarios").style.display = mostrar ? "block" : "none";
+}
