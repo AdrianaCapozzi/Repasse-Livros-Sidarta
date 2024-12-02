@@ -87,4 +87,76 @@ document.getElementById("serie").addEventListener("change", function() {
       document.getElementById("livros").innerHTML = "<li>Por favor, selecione uma série.</li>";
     }
   });
+
+
+
+
+
+
+  // Referências aos elementos do formulário
+const serieSelect = document.getElementById("serie");
+const perguntaRepassar = document.getElementById("pergunta-repassar");
+const btnSim = document.getElementById("btn-sim");
+const btnNao = document.getElementById("btn-nao");
+const livrosRepassar = document.getElementById("livros-repassar");
+const livrosRepassarSelect = document.getElementById("livros-repassar-select");
+const livrosNecessarios = document.getElementById("livros-necessarios");
+const livrosNecessariosSelect = document.getElementById("livros-necessarios-select");
+
+// Exibe a pergunta sobre repassar livros após selecionar as séries
+serieSelect.addEventListener("change", function () {
+  if (serieSelect.selectedOptions.length > 0) {
+    perguntaRepassar.style.display = "block";
+  }
+});
+
+// Quando o usuário clica em "Sim" ou "Não" na pergunta sobre repassar livros
+btnSim.addEventListener("click", function () {
+  livrosRepassar.style.display = "block";
+
+  // Busca os livros da série anterior e preenche o select
+  const seriesSelecionadas = Array.from(serieSelect.selectedOptions).map(opt => opt.value);
+  const seriesAnteriores = seriesSelecionadas.map(serie => obterSerieAnterior(serie));
+
+  seriesAnteriores.forEach(serie => {
+    fetch(`URL_DO_SEU_SCRIPT?serie=${serie}`)
+      .then(response => response.json())
+      .then(livros => {
+        livros.forEach(livro => {
+          const option = document.createElement("option");
+          option.value = livro[1];
+          option.textContent = livro[1];
+          livrosRepassarSelect.appendChild(option);
+        });
+      });
+  });
+});
+
+btnNao.addEventListener("click", function () {
+  livrosNecessarios.style.display = "block";
+
+  // Busca os livros da série selecionada e preenche o select
+  const seriesSelecionadas = Array.from(serieSelect.selectedOptions).map(opt => opt.value);
+
+  seriesSelecionadas.forEach(serie => {
+    fetch(`URL_DO_SEU_SCRIPT?serie=${serie}`)
+      .then(response => response.json())
+      .then(livros => {
+        livros.forEach(livro => {
+          const option = document.createElement("option");
+          option.value = livro[1];
+          option.textContent = livro[1];
+          livrosNecessariosSelect.appendChild(option);
+        });
+      });
+  });
+});
+
+// Função auxiliar para obter a série anterior
+function obterSerieAnterior(serie) {
+  const series = ["G5", "1° ano", "2° ano", "3° ano", "4° ano", "5° ano", "6° ano", "7° ano", "8° ano", "9° ano", "1º ano EM", "2º ano EM", "3º ano EM"];
+  const index = series.indexOf(serie);
+  return index > 0 ? series[index - 1] : null;
+}
+
   
