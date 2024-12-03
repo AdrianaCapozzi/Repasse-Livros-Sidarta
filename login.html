@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cadastro de Usuário</title>
     <style>
         /* Estilo geral da página */
         body {
@@ -68,16 +68,56 @@
             background-color: darkblue;
         }
     </style>
+
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="POST">
+    <h1>Cadastro de Usuário</h1>
+    
+    <!-- Texto explicativo -->
+    <p>Por favor, insira o seu nome que será usado como login e cadastre uma senha numérica de exatamente 6 dígitos.</p>
+
+    <!-- Formulário -->
+    <form id="formCadastro">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
+        <small>O nome será utilizado como login</small>
+        <br><br>
+        
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <button type="submit">Entrar</button>
+        <input type="password" id="senha" name="senha" maxlength="6" required>
+        <small>A senha deve ser numérica e conter 6 dígitos</small>
+        <br><br>
+        
+        <button type="submit">Cadastrar</button>
     </form>
-    <a href="/cadastro">Cadastrar-se</a>
+
+    <!-- Script -->
+    <script>
+        document.getElementById('formCadastro').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const senha = document.getElementById('senha').value;
+
+            fetch('https://script.google.com/macros/s/AKfycbzW30I_j-G_ZldChJJthzR4jxXf8fg4tGnbmezeAhWdv_biPwPVj6UEwcP0DbD0TWNs/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, senha })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        alert(data.mensagem);
+                    } else {
+                        alert(`Erro: ${data.erro}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao salvar usuário:', error);
+                });
+        });
+    </script>
 </body>
 </html>
