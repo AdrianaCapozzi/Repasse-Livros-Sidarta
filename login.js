@@ -4,7 +4,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const password = document.getElementById('password').value;
 
     // Chamada à API do Apps Script
-    fetch(`https://script.google.com/macros/s/AKfycbzW30I_j-G_ZldChJJthzR4jxXf8fg4tGnbmezeAhWdv_biPwPVj6UEwcP0DbD0TWNs/exec`, {
+    fetch('https://script.google.com/macros/s/AKfycbxAgOTBDewvikGCTXCpefJRhGRys18MvDVSNfywTlUvbsybIYe3DxTztFQDeKfk3XSw/exec', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
         headers: {
@@ -21,5 +21,36 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .catch(error => {
         console.error('Erro:', error);
+    });
+});
+
+// Evento para o botão de cadastro
+document.getElementById('registerButton').addEventListener('click', function() {
+    const username = prompt('Digite seu nome de usuário (login):');
+    const password = prompt('Digite sua senha numérica de 6 dígitos:');
+
+    if (!username || !password || password.length !== 6 || isNaN(password)) {
+        alert('Dados inválidos! Certifique-se de preencher corretamente.');
+        return;
+    }
+
+    // Chamada à API para cadastro
+    fetch('https://script.google.com/macros/s/AKfycbxAgOTBDewvikGCTXCpefJRhGRys18MvDVSNfywTlUvbsybIYe3DxTztFQDeKfk3XSw/exec', {
+        method: 'POST',
+        body: JSON.stringify({ username, password, action: 'register' }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Usuário cadastrado com sucesso!');
+        } else {
+            alert('Erro ao cadastrar: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao cadastrar:', error);
     });
 });
