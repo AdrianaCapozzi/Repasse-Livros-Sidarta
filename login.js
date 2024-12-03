@@ -34,6 +34,18 @@ document.getElementById('registerButton').addEventListener('click', function() {
         return;
     }
 
+// Evento para o botão de cadastro
+document.getElementById('registerButton').addEventListener('click', function() {
+    const username = prompt('Digite seu nome de usuário (login):');
+    const password = prompt('Digite sua senha numérica de 6 dígitos:');
+
+    if (!username || !password || password.length !== 6 || isNaN(password)) {
+        alert('Dados inválidos! Certifique-se de preencher corretamente.');
+        return;
+    }
+
+
+
     // Chamada à API para cadastro
     fetch('https://script.google.com/macros/s/AKfycbxAgOTBDewvikGCTXCpefJRhGRys18MvDVSNfywTlUvbsybIYe3DxTztFQDeKfk3XSw/exec', {
         method: 'POST',
@@ -54,3 +66,5 @@ document.getElementById('registerButton').addEventListener('click', function() {
         console.error('Erro ao cadastrar:', error);
     });
 });
+
+

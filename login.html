@@ -91,6 +91,14 @@
         <button type="submit">Cadastrar</button>
     </form>
 
+
+     <!-- Botão de cadastro -->
+     <button id="registerButton">Cadastrar</button>
+
+     <p id="errorMsg" style="color: red; display: none;">Usuário ou senha inválidos</p>
+ 
+     <script src="login.js"></script>
+
     <!-- Script -->
     <script>
         document.getElementById('formCadastro').addEventListener('submit', function (event) {
@@ -117,7 +125,7 @@
                 .catch(error => {
                     console.error('Erro ao salvar usuário:', error);
                 });
-        });
+        }); 
     </script>
 </body>
 </html>
