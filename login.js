@@ -14,7 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = 'pagina_principal.html'; // Redireciona após sucesso
+            window.location.href = 'perfil.html'; // Redireciona após sucesso
         } else {
             document.getElementById('errorMsg').style.display = 'block';
         }
