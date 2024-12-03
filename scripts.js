@@ -337,6 +337,34 @@ const livros = {
     ]
 };
 
+
+document.getElementById('livrosNecessariosSim').addEventListener('change', function() {
+    if (this.checked) {
+        const listaLivros = livros["2ano"]; // Exemplo: você selecionou "1º ano" e precisa dos livros do "2º ano".
+        const container = document.getElementById('listaLivrosNecessarios');
+        container.innerHTML = ''; // Limpa o conteúdo anterior.
+        listaLivros.forEach(livro => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = livro;
+            checkbox.name = 'livro';
+            checkbox.value = livro;
+
+            const label = document.createElement('label');
+            label.htmlFor = livro;
+            label.textContent = livro;
+
+            const div = document.createElement('div');
+            div.appendChild(checkbox);
+            div.appendChild(label);
+
+            container.appendChild(div);
+        });
+    }
+});
+
+
+
 // Atualizar livros para repassar
 function atualizarLivrosRepassar() {
     const serie2024 = document.getElementById("serie2024").value;
