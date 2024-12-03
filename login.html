@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
     <style>
-        /* Estilo geral da página */
         body {
             background-color: black;
             color: lightgray;
             font-family: Arial, sans-serif;
-            text-align: center; /* Centraliza o conteúdo */
+            text-align: center;
         }
 
         h1 {
@@ -18,10 +17,9 @@
             margin-top: 20px;
         }
 
-        /* Estilo dos rótulos e campos de entrada */
         label {
             display: block;
-            margin: 15px 0 5px; /* Espaço entre o texto e o campo */
+            margin: 15px 0 5px;
             font-size: 1.2em;
         }
 
@@ -30,12 +28,11 @@
             margin-top: 5px;
             border-radius: 5px;
             border: 1px solid lightgray;
-            width: 60%; /* Centraliza e ajusta o tamanho */
-            background-color: #333; /* Fundo do campo */
-            color: lightgray; /* Cor do texto */
+            width: 60%;
+            background-color: #333;
+            color: lightgray;
         }
 
-        /* Estilo do botão de login */
         button {
             padding: 12px 25px;
             background-color: blue;
@@ -51,7 +48,6 @@
             background-color: darkblue;
         }
 
-        /* Estilo dos links para se comportarem como botões */
         a {
             display: inline-block;
             padding: 12px 25px;
@@ -59,24 +55,24 @@
             color: white;
             text-decoration: none;
             border-radius: 10px;
-            text-align: center;
             font-size: 1.2em;
-            margin: 20px auto; /* Centraliza com margens */
+            margin: 20px auto;
         }
 
         a:hover {
             background-color: darkblue;
         }
-    </style>
 
+        #errorMsg {
+            color: red;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Cadastro de Usuário</h1>
-    
-    <!-- Texto explicativo -->
     <p>Por favor, insira o seu nome que será usado como login e cadastre uma senha numérica de exatamente 6 dígitos.</p>
 
-    <!-- Formulário -->
     <form id="formCadastro">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
@@ -91,43 +87,16 @@
         <button type="submit">Cadastrar</button>
     </form>
 
-
-     <!-- Botão de cadastro -->
     <button id="registerButton">Cadastrar</button>
+    <p id="errorMsg">Usuário ou senha inválidos</p>
 
-    <p id="errorMsg" style="color: red; display: none;">Usuário ou senha inválidos</p>
+    <!-- Adicionando área condicional -->
+    <div id="conditionalSection" style="display: none; margin-top: 20px;">
+        <h2>Você precisa de livros da série seguinte?</h2>
+        <button id="yesButton">Sim</button>
+        <button id="noButton">Não</button>
+    </div>
 
     <script src="login.js"></script>
-
-    <!-- Script -->
-    <script>
-        document.getElementById('formCadastro').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const nome = document.getElementById('nome').value;
-            const senha = document.getElementById('senha').value;
-
-            fetch('https://script.google.com/macros/s/AKfycbxAgOTBDewvikGCTXCpefJRhGRys18MvDVSNfywTlUvbsybIYe3DxTztFQDeKfk3XSw/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nome, senha })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.sucesso) {
-                        alert(data.mensagem);
-                    } else {
-                        alert(`Erro: ${data.erro}`);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao salvar usuário:', error);
-                });
-        }); 
-    </script>
-
-<script src="scripts.js"></script>
 </body>
 </html>
