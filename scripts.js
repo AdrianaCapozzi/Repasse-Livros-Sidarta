@@ -87,13 +87,8 @@ document.getElementById("serie").addEventListener("change", function() {
       document.getElementById("livros").innerHTML = "<li>Por favor, selecione uma série.</li>";
     }
   });
-
-
-
-
-
-
-  // Referências aos elementos do formulário
+      
+      // Referências aos elementos do formulário
 const serieSelect = document.getElementById("serie");
 const perguntaRepassar = document.getElementById("pergunta-repassar");
 const btnSim = document.getElementById("btn-sim");
@@ -159,8 +154,6 @@ function obterSerieAnterior(serie) {
   return index > 0 ? series[index - 1] : null;
 }
 
-
-
 function mostrarLivrosRepassar(mostrar) {
     document.getElementById("livrosRepassar").style.display = mostrar ? "block" : "none";
 }
@@ -168,8 +161,7 @@ function mostrarLivrosRepassar(mostrar) {
 function mostrarLivrosNecessarios(mostrar) {
     document.getElementById("livrosNecessarios").style.display = mostrar ? "block" : "none";
 }
-
-  
+ 
 const livros = {
 
     g5: [
@@ -228,7 +220,6 @@ const livros = {
         "Buriti Plus Ciências (livro)",
         "Buriti Plus Ciências (caderno de atividades)",
         "Lola y Leo Paso a Paso 2 (2024) 3 (2025)"
-                
     ],
 
     "5ano": [
@@ -244,7 +235,6 @@ const livros = {
         "Dois meninos de Kakuma (2º bimestre)",
         "Histórias greco-romanas (3º bimeste)",
         "Iara sob supseita (4º bimestre)"
-     
     ],
 
     "6ano": [
@@ -258,7 +248,6 @@ const livros = {
         "Araribá Plus - História (livro)",
         "Araribá Plus - Geografia (livro)",
         "Atlas Geográfico Escolar (volume único)- Só alunos novos"
-    
     ],
 
     "7ano": [
@@ -274,7 +263,6 @@ const livros = {
         "Atlas Geográfico Escolar (volume único) - só alunos novos)",
         "Ciências da Natureza: Geração Alpha - 5º ed. (livro)",
         "Reporteros Brasil 3"
-
     ],
 
     "8ano": [
@@ -289,7 +277,6 @@ const livros = {
         "O chinês americano (1º semestre)",
         "O fazedor de velhos (3º bimestre)",
         "Marcovaldo ou as estações na cidade  (4º bimestre)"
-
     ],
 
     "9ano": [
@@ -304,7 +291,6 @@ const livros = {
         "Geração Alpha Ciências - 5º ed. (livro)",
         "Araribá Plus - História (livro)",
         "Araribá Plus - Geografia (livro)"
-
     ],
 
     "1medio": [
@@ -313,7 +299,6 @@ const livros = {
         "Prosas seguidas de ode mínimas  (2º bimestre)",
         "A metamorfose  (3º bimestre)",
         "Canção para ninar menino grande  (4º bimestre)"
-
     ],
 
     "2medio": [
@@ -323,7 +308,6 @@ const livros = {
         "Dom Casmurro  (1º semestre)",
         "Balada do amor ao vento  (3º bimestre)",
         "Nebulosas  (4º bimestre)"
-
     ],
 
     "3medio": [
@@ -333,10 +317,8 @@ const livros = {
        "Caminhos das pedras  (1º semestre)",
        "O cristo cigano e Geografia  (3º bimestre)",
        "As meninas  (4º bimestre)"
-
     ]
 };
-
 
 document.getElementById('livrosNecessariosSim').addEventListener('change', function() {
     if (this.checked) {
@@ -362,8 +344,6 @@ document.getElementById('livrosNecessariosSim').addEventListener('change', funct
         });
     }
 });
-
-
 
 // Atualizar livros para repassar
 function atualizarLivrosRepassar() {
@@ -489,7 +469,6 @@ document.querySelectorAll('[name="livrosNecessarios"]').forEach(radio => {
         }
     });
 });
-
 
 function calcularProximaSerie(serieAtual) {
     const series = ["g5", "1ano", "2ano", "3ano", "4ano", "5ano", "6ano", "7ano", "8ano", "9ano", "1medio", "2medio", "3medio"];
