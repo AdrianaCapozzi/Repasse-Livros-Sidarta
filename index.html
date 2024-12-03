@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://apis.google.com/js/api.js"></script>
 
+    <script src="login.js" defer></script>
+
+
     <title>Repasse de Livros 2025</title>
     <style>
         body {
@@ -40,6 +43,20 @@
     <p>Escolha uma das opções abaixo:</p>
     <a href="login.html" class="btn">Login</a>
     <a href="cadastro.html" class="btn">Cadastro</a>
+
+    <body>
+        <form id="loginForm">
+            <label for="username">Nome:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" maxlength="6" required>
+    
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="errorMsg" style="display: none; color: red;">Login ou senha inválidos.</p>
+    </body>
+    </html>
 </body>
 </html>
 
