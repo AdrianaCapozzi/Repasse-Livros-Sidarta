@@ -154,7 +154,7 @@ btnNao.addEventListener("click", function () {
 
 // Função auxiliar para obter a série anterior
 function obterSerieAnterior(serie) {
-  const series = ["G5", "1° ano", "2° ano", "3° ano", "4° ano", "5° ano", "6° ano", "7° ano", "8° ano", "9° ano", "1º ano EM", "2º ano EM", "3º ano EM"];
+  const series = ["G5", "1° ano", "2° ano", "3° ano", "4° ano", "5° ano", "6° ano", "7° ano", "8° ano", "9° ano", "1º serie EM", "2º serie EM", "3º serie EM"];
   const index = series.indexOf(serie);
   return index > 0 ? series[index - 1] : null;
 }
@@ -170,10 +170,8 @@ function mostrarLivrosNecessarios(mostrar) {
 }
 
   
-
-
-// Livros por série (Ciclo 1)
 const livros = {
+
     g5: [
         "O que é preciso pra ser rei? (1º bimestre)",
         "Carona (2º bimestre)",
@@ -181,6 +179,7 @@ const livros = {
         "O pássaro encantado (4º bimestre)",
         "Bichodário (do 1º bimestre ao 4º bimestre)"
     ],
+
     "1ano": [
         "Ligamundo matemática (livro e caderno de atividades)",
         "Achou? (1º bimestre)",
@@ -191,6 +190,7 @@ const livros = {
         "Meu primeiro livro de contos de fadas (2º semestre)",
         "As férias do pequeno Nicolau (2º semestre)"
     ],
+
     "2ano": [
         "Ligamundo matemática (livro e caderno de atividades)",
         "De volta (1º bimestre)",
@@ -201,6 +201,7 @@ const livros = {
         "Noite de brinquedo (2º semestre)",
         "Science Skills 2 AB W/Online Activities"
     ],
+
     "3ano": [
         "Buriti Plus Português (caderno de atividades)",
         "Lola y Leo Paso a Paso LIBRO DEL ALUMNO 1 (2024) 2 (2025)",
@@ -212,6 +213,127 @@ const livros = {
         "Um dia, um rio (4º bimestre)",
         "Mania de explicação: peça em seis atos (2º semestre)",
         "Diário de Pilar na Amazônia - Urgente! (nova edição) (2º semestre)"
+    ],
+
+    "4ano": [
+        "Lampião & Lancelote (1º bimestre)", 
+        "Pequenas Grandes Sonhadoras: mulheres visionárias ao redor do mundo (2º bimestre)",
+        "Lendas da Amazônia... e é assim até hoje! (3º bimestre)",
+        "A África recontada para crianças (4º bimestre)",
+        "Português: Projeto Presente - Língua Portuguesa - 6º ed. (livro)",
+        "Mini Aurelio: o dicionário da língua portuguesa (8ª ed.)",
+        "Matemática: Ligamundo (livro e caderno de atividades)",
+        "Projeto Presente - Ciências Humanas Integrado - 6º ed. (livro)",
+	    "Atlas Geográfico Escolar (volume único) - Comprar apenas no 4º ano e alunos novos",
+        "Buriti Plus Ciências (livro)",
+        "Buriti Plus Ciências (caderno de atividades)",
+        "Lola y Leo Paso a Paso 2 (2024) 3 (2025)"
+                
+    ],
+
+    "5ano": [
+        "Projeto Presente - Língua Portuguesa - 6º ed. (livro)",
+        "Mini Aurelio: o dicionário da língua portuguesa (8ª ed.)",
+        "Ligamundo (livro e caderno de atividades)",
+        "Projeto Presente - Ciências Humanas Integrado - 6º ed. (livro)",
+        "Atlas Geográfico Escolar (volume único) - Só alunos novos",
+        "Buriti Plus Ciências (livro)",
+        "Buriti Plus Ciências (caderno de atividades)",
+        "Lola y Leo Paso a Paso 3 (2024) Reporteros Brasil 1 (2025)",
+        "Vendo poemas (1º bimestre)",
+        "Dois meninos de Kakuma (2º bimestre)",
+        "Histórias greco-romanas (3º bimeste)",
+        "Iara sob supseita (4º bimestre)"
+     
+    ],
+
+    "6ano": [
+        "O meu quintal é maior do que o mundo (1º bimestre)",
+        "Mil Milhas (2º bimestre)",
+        "Mais de 100 histórias maravilhosas (3º bimestre)",
+        "Lendas negras (4º bimestre)",
+        "Convergências (livro)",
+        "Mini Aurelio: o dicionário da língua portuguesa (8ª ed.)",
+        "Geração Alpha - 5º ed. (livro)",
+        "Araribá Plus - História (livro)",
+        "Araribá Plus - Geografia (livro)",
+        "Atlas Geográfico Escolar (volume único)- Só alunos novos"
+    
+    ],
+
+    "7ano": [
+        "Sol Lascado (1º bimestre)",                                                                                                          Obs.: Autor da região de Cotia, fazer a compra pelo site https://trovoar.lojaintegrada.com.br/ com o cupom SIDARTA para 10% de desconto e a entrega será feita no Sidarta, na primeira semana de aula.
+        "Curupira (2º bimestre)",
+        "Vidas secas (3º bimestre)",
+        "Contos da selva (4º bimestre)",
+        "Português: Convergências (livro)",
+        "Mini Aurelio: o dicionário da língua portuguesa (8ª ed.)",
+        "Geração Alpha - 5º ed. (livro)",
+        "Araribá Plus - História Plus (livro)",
+        "Araribá Plus - Geografia (livro)",
+        "Atlas Geográfico Escolar (volume único) - só alunos novos)",
+        "Ciências da Natureza: Geração Alpha - 5º ed. (livro)",
+        "Reporteros Brasil 3"
+
+    ],
+
+    "8ano": [
+        "Português: Convergências (livro)",
+        "Matemática: Geração Alfa - 5º ed. (livro)",
+        "Espanhol: Reporteros Brasil 4)",
+        "Araribá Plus - Ciências (livro)",
+        "Araribá Plus - História (livro)",
+        "Araribá Plus - Geografia (livro)",
+        "O perigo de uma história única (1º bimestre)",
+        "Valentes: histórias de pessoas refugiadas no Brasil  (2º bimestre)",
+        "O chinês americano (1º semestre)",
+        "O fazedor de velhos (3º bimestre)",
+        "Marcovaldo ou as estações na cidade  (4º bimestre)"
+
+    ],
+
+    "9ano": [
+        "O dia do curinga  (1º bimestre)",
+        "Maus (1º semestre)",
+        "A revolução dos bichos  (2º bimestre)",
+        "Torto Arado  (3º bimestre)",
+        "Ligue os pontos: poemas de amor e big bang  (4º bimestre)",
+        "Português: Convergências (livro)",
+        "Matemática: Geração Alfa - 5º ed. (livro)",
+        "Espanhol: Gente Joven 4",
+        "Geração Alpha Ciências - 5º ed. (livro)",
+        "Araribá Plus - História (livro)",
+        "Araribá Plus - Geografia (livro)"
+
+    ],
+
+    "1medio": [
+        "Espanhol: Nos Vemos Hoy 3",
+        "Édipo rei  (1º bimestre)",
+        "Prosas seguidas de ode mínimas  (2º bimestre)",
+        "A metamorfose  (3º bimestre)",
+        "Canção para ninar menino grande  (4º bimestre)"
+
+    ],
+
+    "2medio": [
+        "Espanhol: Nos Vemos Hoy 3",
+        "Opúsculo humanitário  (1º bimestre)",
+        "Memórias de Martha  (2º bimestre)",
+        "Dom Casmurro  (1º semestre)",
+        "Balada do amor ao vento  (3º bimestre)",
+        "Nebulosas  (4º bimestre)"
+
+    ],
+
+    "3medio": [
+       "Espanhol: Nos Vemos Hoy 3",
+       "A visão das plantas  (1º bimestre)",
+       "Alguma poesia   (2º bimestre)",
+       "Caminhos das pedras  (1º semestre)",
+       "O cristo cigano e Geografia  (3º bimestre)",
+       "As meninas  (4º bimestre)"
+
     ]
 };
 
