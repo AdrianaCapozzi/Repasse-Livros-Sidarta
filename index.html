@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://apis.google.com/js/api.js"></script>
-
     <script src="login.js" defer></script>
 
     <title>Repasse de Livros 2025</title>
@@ -20,9 +19,14 @@
         h1 {
             color: #00bcd4;
         }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .btn {
             display: inline-block;
-            margin: 20px;
+            margin: 10px; /* Reduzi o espaçamento para melhor alinhamento */
             padding: 15px 25px;
             font-size: 18px;
             color: #fff;
@@ -40,12 +44,13 @@
     <h1>Bem-vindo ao Repasse de Livros Sidarta 2025</h1>
     <p></p>
     <p>Escolha uma das opções abaixo:</p>
-    <a href="login.html" class="btn">Login</a>
-    <a href="cadastro.html" class="btn">Cadastro</a>
-    <a href="regulamentos.html" class="btn">Regulamentos</a> 
+
+    <div class="btn-container">
+        <a href="login.html" class="btn">Login</a>
+        <a href="cadastro.html" class="btn">Cadastro</a>
+        <a href="regulamento.html" class="btn">Regulamento</a> 
+    </div>
 
     <p id="errorMsg" style="display: none; color: red;">Login ou senha inválidos.</p>
 </body>
 </html>
-
-
